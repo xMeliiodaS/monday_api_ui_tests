@@ -10,9 +10,7 @@ class JiraHandler:
         self.config_secret = ConfigProvider().load_secret_json()
         self._jira_url = 'https://bahaaabozlf19.atlassian.net/'
         self.auth_jira = JIRA(
-            basic_auth=(self.config['jira_email'],
-                        self.config_secret['jira_token']),
-            options={'server': self._jira_url}
+            basic_auth=(self.config['jira_email'],            options={'server': self._jira_url}
         )
 
     def create_issue(self, project_key, summary, description, issue_type="Bug"):
