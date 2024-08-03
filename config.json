@@ -1,7 +1,8 @@
 {
-  "url" : "https://store.steampowered.com/",
+  "url": "https://auth.monday.com/auth/login_monday/",
+  "url_after_login": "https://bahaaabozlf57s-team.monday.com/",
   "browser": "Chrome",
-  "email" : "zedanzedanzezob@gmail.com",
+  "email": "bahaa.abozlf57@gmail.com",
   "jira_email": "bahaa.abozlf57@gmail.com",
-  "password" : "HeyGuys912"
+  "password": "Higuys192"
 }

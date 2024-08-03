@@ -15,7 +15,7 @@ class ConfigProvider:
         """
         try:
             # Since we are using with modules with can't use relative path, so changed it to absolute path
-            with open(r'D:\Users\User\Desktop\Steam\Steam_api_ui_tests\config.json', 'r') as f:
+            with open(r'D:\Users\User\Desktop\Steam\Monday_api_ui_tests\config.json', 'r') as f:
                 return json.load(f)
         except FileNotFoundError:
             print(f"File not found. Starting with an empty library.")
@@ -29,7 +29,7 @@ class ConfigProvider:
         """
         try:
             # Since we are using with modules with can't use relative path, so changed it to absolute path
-            with open(r'D:\Users\User\Desktop\Steam\Steam_api_ui_tests\secret.json', 'r') as f:
+            with open(r'D:\Users\User\Desktop\Steam\Monday_api_ui_tests\secret.json', 'r') as f:
                 return json.load(f)
         except FileNotFoundError:
             print(f"File not found. Starting with an empty library.")
