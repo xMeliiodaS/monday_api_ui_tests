@@ -1,9 +1,8 @@
-import logging
 import time
 import unittest
 from infra.browser.browser_wrapper import BrowserWrapper
 from infra.config_provider import ConfigProvider
-from logic.logic_ui.login_page import LoginPage
+from logic.logic_browser.login_page import LoginPage
 
 
 class TestLoginPage(unittest.TestCase):
@@ -18,7 +17,7 @@ class TestLoginPage(unittest.TestCase):
         """
         self.browser = BrowserWrapper()
         self.config = ConfigProvider.load_config_json()
-        self.driver = self.browser.get_driver(self.config["url"])
+        self.driver = self.browser.get_driver(self.config["login_url"])
 
     def tearDown(self) -> None:
         """
@@ -39,4 +38,4 @@ class TestLoginPage(unittest.TestCase):
 
         # Assert
         time.sleep(3)
-        self.assertEqual(self.driver.current_url, self.config['url_after_login'])
+        self.assertEqual(self.driver.current_url, self.config['url'])
