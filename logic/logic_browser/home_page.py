@@ -1,0 +1,22 @@
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
+
+from infra.browser.base_page import BasePage
+
+
+class HomePage(BasePage):
+    # ------------------Locators related to the workspace------------------
+    BOARD_BUTTON = '//div[@id="quick_search_item_board_1583771705"]'
+
+    def __init__(self, driver):
+        """
+        Initialize the Base App Page with a WebDriver instance.
+
+        :param driver: The WebDriver instance to use for browser interactions.
+        """
+        super().__init__(driver)
+
+    def click_on_the_board(self):
+        WebDriverWait(self._driver, 5).until(
+            EC.element_to_be_clickable((By.XPATH, self.BOARD_BUTTON))).click()

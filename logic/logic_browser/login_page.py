@@ -53,4 +53,3 @@ class LoginPage(BasePage):
         self.click_on_next_button()
         self.fill_password_input(password)
         self.click_on_login_button()
-

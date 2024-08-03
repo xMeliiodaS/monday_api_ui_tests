@@ -9,6 +9,19 @@ class DefaultTaskPayload:
         self.pos = pos
         self.with_undo_data = with_undo_data
 
+        self._name = None
+        self.set_name()  # Set the name using the setter method
+
+    @property
+    def name(self):
+        return self._name
+
+    @name.setter
+    def name(self, value):
+        self._name = value
+
+    def set_name(self):
+        # Set the name to a random key
         self.name = Utils.generate_random_key()
 
     def to_dict(self):
