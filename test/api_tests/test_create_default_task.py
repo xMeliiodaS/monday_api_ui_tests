@@ -43,5 +43,3 @@ class TestCreateDefaultTask(unittest.TestCase):
 
         board_page = BoardPage(self.driver)
         self.assertTrue(board_page.is_task_name_displayed(default_task_payload.name))
-
-
