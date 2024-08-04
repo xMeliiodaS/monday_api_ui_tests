@@ -43,7 +43,7 @@ class LoginPage(BasePage):
         Clicks the 'Next' button after ensuring it's clickable.
         """
         WebDriverWait(self._driver, 5).until(
-            EC.element_to_be_clickable((By.XPATH, self.LOGIN_BUTTON))).click()
+            EC.element_to_be_clickable((By.XPATH, self.NEXT_BUTTON))).click()
 
     def click_on_login_button(self):
         """

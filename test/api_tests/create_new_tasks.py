@@ -41,7 +41,7 @@ class TestCreateDefaultTask(unittest.TestCase):
                                                   default_task_data['with_undo_data'])
         new_task = NewTask(self.api_request)
 
-        # Create the task
+        # Act
         new_task.post_create_task(default_task_payload.to_dict())
 
         home_page = HomePage(self.driver)
@@ -49,6 +49,8 @@ class TestCreateDefaultTask(unittest.TestCase):
 
         board_page = BoardPage(self.driver)
         self.assertTrue(board_page.is_task_name_displayed(default_task_payload.name))
+
+    # ------------------------------------------------------------------------
 
     def test_post_new_working_on_it_task(self):
         """
