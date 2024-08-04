@@ -8,14 +8,19 @@
   },
   "browser": "Chrome",
   "email": "bahaa.abozlf57@gmail.com",
-  "jira_email": "bahaa.abozlf57@gmail.com",
   "password": "Higuys192",
-  "board_id": 1583771705,
-  "group_id": "new_group29179",
-  "name": "New Taskaaaa",
-  "column_values": {
-    "name": "New Taskaaaa"
+  "jira_email": "bahaa.abozlf57@gmail.com",
+  "space1": "---------------------------------------",
+  "create_default_task": {
+    "board_id": 1583771705,
+    "group_id": "new_group29179",
+    "name": "New Taskaaaa",
+    "column_values": {
+      "name": "New Taskaaaa"
+    },
+    "pos": 195168,
+    "with_undo_data": true
   },
-  "pos": 195168,
-  "with_undo_data": true
+  "space2": "---------------------------------------",
+  "space3": "---------------------------------------"
 }

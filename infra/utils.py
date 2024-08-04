@@ -8,7 +8,7 @@ class Utils:
     """
 
     @staticmethod
-    def generate_random_key(length=8):
+    def generate_random_key(length=12):
         # Define the characters that can be used in the key
         characters = string.ascii_letters + string.digits
 
@@ -16,4 +16,3 @@ class Utils:
         random_key = ''.join(random.choice(characters) for _ in range(length))
 
         return random_key
-

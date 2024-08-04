@@ -30,9 +30,10 @@ class TestCreateDefaultTask(unittest.TestCase):
 
     def test_post_new_default_task(self):
         # Arrange
-        default_task_payload = DefaultTaskPayload(self.config['board_id'],
-                                                  self.config['column_values'], self.config['pos'],
-                                                  self.config['with_undo_data'])
+        default_task_data = self.config['create_default_task']
+        default_task_payload = DefaultTaskPayload(default_task_data['board_id'],
+                                                  default_task_data['column_values'], default_task_data['pos'],
+                                                  default_task_data['with_undo_data'])
         new_task = NewTask(self.api_request)
 
         # Create the task
