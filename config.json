@@ -22,5 +22,20 @@
     "with_undo_data": true
   },
   "space2": "---------------------------------------",
+  "create_working_on_it_task": {
+    "board_id": 1583771705,
+    "group_id": "new_group29179",
+    "name": "New Task",
+    "column_values": {
+      "name": "New Task",
+      "project_status": {
+        "index": 0,
+        "post_id": null,
+        "changed_at": "2024-08-04T08:40:12.883Z"
+      }
+    },
+    "pos": 65536,
+    "with_undo_data": true
+  },
   "space3": "---------------------------------------"
 }
