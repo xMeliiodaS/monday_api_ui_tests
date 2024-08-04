@@ -14,6 +14,7 @@ class BoardPage(BasePage):
     TASK_OPTIONS = '//i[@class="icon ellipsis icon-v2-ellipsis"]'
     DELETE_TASK_BUTTON = '//span[text() = "Delete"]'
     DELETE_BUTTON_CONFIRMATION = '//button[text() = "Delete"]'
+    FIRST_OPTION = '(//i[@class="icon ellipsis icon-v2-ellipsis"])[1]'
 
     def __init__(self, driver):
         """
@@ -71,3 +72,21 @@ class BoardPage(BasePage):
 
             except Exception as e:
                 print(f"Error deleting task at index {i}: {e}")
+
+    def delete_all_tasks_from_board_v2(self):
+        elements_length = len(WebDriverWait(self._driver, 15).until(
+            EC.presence_of_all_elements_located((By.XPATH, self.TASK_OPTIONS)))
+        )
+        for i in range(elements_length):
+            element = self._driver.find_element(By.XPATH, self.FIRST_OPTION)
+            element.click()
+            WebDriverWait(self._driver, 8).until(
+                EC.element_to_be_clickable((By.XPATH, self.DELETE_TASK_BUTTON))
+            ).click()
+
+            # Wait for the confirmation button to be clickable and click it
+            WebDriverWait(self._driver, 8).until(
+                EC.element_to_be_clickable((By.XPATH, self.DELETE_BUTTON_CONFIRMATION))
+            ).click()
+
+            time.sleep(1.3)

@@ -31,7 +31,7 @@ class TestCreateDefaultTask(unittest.TestCase):
     # ------------------------------------------------------------------------
 
     def tearDown(self) -> None:
-        self.board_page.delete_all_tasks_from_board()
+        self.board_page.delete_all_tasks_from_board_v2()
         self.driver.quit()
 
     # ------------------------------------------------------------------------
