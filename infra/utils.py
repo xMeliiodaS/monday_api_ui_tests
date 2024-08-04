@@ -9,6 +9,12 @@ class Utils:
 
     @staticmethod
     def generate_random_key(length=12):
+        """
+        Generates a random alphanumeric key of a specified length.
+
+        :param length: The length of the random key to be generated (default is 12).
+        :return: A random alphanumeric string of the specified length.
+        """
         # Define the characters that can be used in the key
         characters = string.ascii_letters + string.digits
 

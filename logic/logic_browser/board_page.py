@@ -11,13 +11,19 @@ class BoardPage(BasePage):
 
     def __init__(self, driver):
         """
-        Initialize the Base App Page with a WebDriver instance.
+        Initializes the BoardPage with the provided WebDriver instance.
 
         :param driver: The WebDriver instance to use for browser interactions.
         """
         super().__init__(driver)
 
     def is_task_name_displayed(self, task_name):
+        """
+        Checks if a task with the specified name is displayed on the board page.
+
+        :param task_name: The name of the task to check for visibility.
+        :return: True if the task is displayed, False otherwise.
+        """
         return WebDriverWait(self._driver, 5).until(
             EC.presence_of_element_located((By.XPATH, f'//div[@class="ds-text-component line-clamp"]'
                                                       f'//span[text() = "{task_name}"]'))).is_displayed()

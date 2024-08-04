@@ -11,12 +11,15 @@ class HomePage(BasePage):
 
     def __init__(self, driver):
         """
-        Initialize the Base App Page with a WebDriver instance.
+        Initializes the HomePage with the provided WebDriver instance.
 
         :param driver: The WebDriver instance to use for browser interactions.
         """
         super().__init__(driver)
 
     def click_on_the_board(self):
+        """
+        Clicks the board button on the home page after ensuring it's clickable.
+        """
         WebDriverWait(self._driver, 5).until(
             EC.element_to_be_clickable((By.XPATH, self.BOARD_BUTTON))).click()

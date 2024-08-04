@@ -30,6 +30,10 @@ class TestCreateDefaultTask(unittest.TestCase):
     # ------------------------------------------------------------------------
 
     def test_post_new_default_task(self):
+        """
+        Tests the creation of a new default task by sending a POST
+         request and verifying its appearance on the board.
+        """
         # Arrange
         default_task_data = self.config['create_default_task']
         default_task_payload = DefaultTaskPayload(default_task_data['board_id'],
@@ -38,7 +42,7 @@ class TestCreateDefaultTask(unittest.TestCase):
         new_task = NewTask(self.api_request)
 
         # Create the task
-        new_task.post_new_default_task(default_task_payload.to_dict())
+        new_task.post_create_task(default_task_payload.to_dict())
 
         home_page = HomePage(self.driver)
         home_page.click_on_the_board()
@@ -47,6 +51,10 @@ class TestCreateDefaultTask(unittest.TestCase):
         self.assertTrue(board_page.is_task_name_displayed(default_task_payload.name))
 
     def test_post_new_working_on_it_task(self):
+        """
+        Tests the creation of a new task for the 'working on it' state by
+         sending a POST request and verifying its appearance on the board.
+        """
         # Arrange
         default_task_data = self.config['create_working_on_it_task']
         project_status = default_task_data['column_values'].get('project_status')
@@ -56,10 +64,10 @@ class TestCreateDefaultTask(unittest.TestCase):
         new_task = NewTask(self.api_request)
 
         # Create the task
-        new_task.post_new_default_task(default_task_payload.to_dict())
+        new_task.post_create_task(default_task_payload.to_dict())
 
-        # home_page = HomePage(self.driver)
-        # home_page.click_on_the_board()
-        #
-        # board_page = BoardPage(self.driver)
-        # self.assertTrue(board_page.is_task_name_displayed(default_task_payload.name))
+        home_page = HomePage(self.driver)
+        home_page.click_on_the_board()
+
+        board_page = BoardPage(self.driver)
+        self.assertTrue(board_page.is_task_name_displayed(default_task_payload.name))

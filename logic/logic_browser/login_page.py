@@ -14,7 +14,7 @@ class LoginPage(BasePage):
 
     def __init__(self, driver):
         """
-        Initialize the Base App Page with a WebDriver instance.
+        Initialize the LoginPage with a WebDriver instance and set up locators for login elements.
 
         :param driver: The WebDriver instance to use for browser interactions.
         """
@@ -31,24 +31,34 @@ class LoginPage(BasePage):
 
     def fill_password_input(self, password):
         """
-        Fill in the username input field with the provided username.
+        Fill in the password input field with the provided password.
 
-        :param password: The username to enter into the email input field.
+        :param password: The password to enter into the password input field.
         """
         WebDriverWait(self._driver, 5).until(
             EC.presence_of_element_located((By.XPATH, self.PASSWORD_INPUT))).send_keys(password)
 
     def click_on_next_button(self):
-        element = WebDriverWait(self._driver, 5).until(
-            EC.element_to_be_clickable((By.XPATH, self.NEXT_BUTTON)))
-        element.click()
+        """
+        Clicks the 'Next' button after ensuring it's clickable.
+        """
+        WebDriverWait(self._driver, 5).until(
+            EC.element_to_be_clickable((By.XPATH, self.LOGIN_BUTTON))).click()
 
     def click_on_login_button(self):
-        element = WebDriverWait(self._driver, 5).until(
-            EC.element_to_be_clickable((By.XPATH, self.LOGIN_BUTTON)))
-        element.click()
+        """
+        Clicks the 'Log in' button after ensuring it's clickable.
+        """
+        WebDriverWait(self._driver, 5).until(
+            EC.element_to_be_clickable((By.XPATH, self.LOGIN_BUTTON))).click()
 
     def login_flow(self, username, password):
+        """
+        Executes the login flow using the provided username and password.
+
+        :param username: The username to enter into the email input field.
+        :param password: The password to enter into the password input field.
+        """
         self.fill_username_input(username)
         self.click_on_next_button()
         self.fill_password_input(password)

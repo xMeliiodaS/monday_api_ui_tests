@@ -29,7 +29,6 @@ class TestLoginPage(unittest.TestCase):
         """
         Test the login functionality with valid credentials.
         """
-
         # Arrange
         login_page = LoginPage(self.driver)
 
