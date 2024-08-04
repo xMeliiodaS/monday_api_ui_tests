@@ -8,7 +8,7 @@ class Utils:
     """
 
     @staticmethod
-    def generate_random_key(length=12):
+    def generate_random_string(length=12):
         """
         Generates a random alphanumeric key of a specified length.
 

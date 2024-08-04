@@ -21,5 +21,5 @@ class HomePage(BasePage):
         """
         Clicks the board button on the home page after ensuring it's clickable.
         """
-        WebDriverWait(self._driver, 5).until(
+        WebDriverWait(self._driver, 10).until(
             EC.element_to_be_clickable((By.XPATH, self.BOARD_BUTTON))).click()

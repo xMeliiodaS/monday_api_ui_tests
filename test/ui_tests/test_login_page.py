@@ -1,4 +1,3 @@
-import time
 import unittest
 from infra.browser.browser_wrapper import BrowserWrapper
 from infra.config_provider import ConfigProvider

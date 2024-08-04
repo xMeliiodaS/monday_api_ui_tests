@@ -1,3 +1,4 @@
+import time
 import unittest
 
 from infra.api.api_wrapper import APIWrapper
@@ -29,6 +30,12 @@ class TestCreateDefaultTask(unittest.TestCase):
 
     # ------------------------------------------------------------------------
 
+    def tearDown(self) -> None:
+        self.board_page.delete_all_tasks_from_board()
+        self.driver.quit()
+
+    # ------------------------------------------------------------------------
+
     def test_post_new_default_task(self):
         """
         Tests the creation of a new default task by sending a POST
@@ -47,8 +54,8 @@ class TestCreateDefaultTask(unittest.TestCase):
         home_page = HomePage(self.driver)
         home_page.click_on_the_board()
 
-        board_page = BoardPage(self.driver)
-        self.assertTrue(board_page.is_task_name_displayed(default_task_payload.name))
+        self.board_page = BoardPage(self.driver)
+        self.assertTrue(self.board_page.is_task_name_displayed(default_task_payload.name))
 
     # ------------------------------------------------------------------------
 

@@ -40,7 +40,7 @@ class WorkingOnItTask:
         """
         Sets the name of the task to a randomly generated key.
         """
-        self.name = Utils.generate_random_key()
+        self.name = Utils.generate_random_string()
 
     def to_dict(self):
         """

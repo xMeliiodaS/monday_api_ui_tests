@@ -1,3 +1,5 @@
+import time
+
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
@@ -9,6 +11,9 @@ class BoardPage(BasePage):
     # ------------------Locators related to the creating task------------------
     TASK_NAME = '//div[@class="ds-text-component line-clamp"]//span[text() = "lImd9Dmw"]'
     TASK_NAME_XPATH_PATTERN = '//div[@class="ds-text-component line-clamp"]//span[text() = "{}"]'
+    TASK_OPTIONS = '//i[@class="icon ellipsis icon-v2-ellipsis"]'
+    DELETE_TASK_BUTTON = '//span[text() = "Delete"]'
+    DELETE_BUTTON_CONFIRMATION = '//button[text() = "Delete"]'
 
     def __init__(self, driver):
         """
@@ -28,3 +33,41 @@ class BoardPage(BasePage):
         task_xpath = self.TASK_NAME_XPATH_PATTERN.format(task_name)
         return WebDriverWait(self._driver, 15).until(
             EC.presence_of_element_located((By.XPATH, task_xpath))).is_displayed()
+
+    def delete_all_tasks_from_board(self):
+        """
+        Deletes all tasks from the board by iterating through task options and clicking
+        the delete button for each. Stops when no more tasks are present.
+        """
+        elements = WebDriverWait(self._driver, 15).until(
+            EC.presence_of_all_elements_located((By.XPATH, self.TASK_OPTIONS)))
+
+        for i in range(len(elements)):
+            try:
+                # Refresh the list of elements to ensure correct indexing
+                elements = WebDriverWait(self._driver, 15).until(
+                    EC.presence_of_all_elements_located((By.XPATH, self.TASK_OPTIONS))
+                )
+
+                if not elements:
+                    return  # Exit the loop if no more elements are found
+
+                # Reset i to 0 to always work on the first element in the refreshed list
+                i = 0
+
+                # Click on the task options menu for the current element
+                elements[i].click()
+                WebDriverWait(self._driver, 10).until(
+                    EC.element_to_be_clickable((By.XPATH, self.DELETE_TASK_BUTTON))
+                ).click()
+
+                # Wait for the confirmation button to be clickable and click it
+                WebDriverWait(self._driver, 5).until(
+                    EC.element_to_be_clickable((By.XPATH, self.DELETE_BUTTON_CONFIRMATION))
+                ).click()
+
+                # Optional: Sleep to allow the UI to update before the next iteration
+                time.sleep(2)
+
+            except Exception as e:
+                print(f"Error deleting task at index {i}: {e}")

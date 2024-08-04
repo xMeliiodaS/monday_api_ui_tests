@@ -39,7 +39,7 @@ class DefaultTaskPayload:
         Sets the name of the task to a randomly generated key.
         """
         # Set the name to a random key
-        self.name = Utils.generate_random_key()
+        self.name = Utils.generate_random_string()
 
     def to_dict(self):
         """
