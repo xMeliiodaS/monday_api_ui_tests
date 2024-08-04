@@ -36,5 +36,17 @@ class TestLoginPage(unittest.TestCase):
         login_page.login_flow(self.config["email"], self.config["password"])
 
         # Assert
-        time.sleep(3)
-        self.assertEqual(self.driver.current_url, self.config['url'])
+        self.assertTrue(login_page.is_login_successful())
+
+    def test_login_unsuccessful(self):
+        """
+        Test the login functionality with invalid credentials.
+        """
+        # Arrange
+        login_page = LoginPage(self.driver)
+
+        # Act
+        login_page.login_flow(self.config["email"], self.config["invalid_password"])
+
+        # Assert
+        self.assertTrue(login_page.is_login_error_displayed())

@@ -11,6 +11,9 @@ class LoginPage(BasePage):
     NEXT_BUTTON = "//button[contains(@class, 'next-button')]"
     PASSWORD_INPUT = "//input[@id='user_password']"
     LOGIN_BUTTON = '//button[@aria-label="Log in"]'
+    ERROR_LOGIN_TEXT = '//div[@class="notice-component warning"]'
+
+    URL_AFTER_LOGIN = 'https://bahaaabozlf57s-team.monday.com/'
 
     def __init__(self, driver):
         """
@@ -63,3 +66,16 @@ class LoginPage(BasePage):
         self.click_on_next_button()
         self.fill_password_input(password)
         self.click_on_login_button()
+
+    def is_login_error_displayed(self):
+        """
+        Checks if the login error message is displayed on the login page.
+
+        :return: True if the login error message is visible, False otherwise.
+        """
+        return WebDriverWait(self._driver, 5).until(
+            EC.presence_of_element_located((By.XPATH, self.ERROR_LOGIN_TEXT))).is_displayed()
+
+    def is_login_successful(self):
+        return WebDriverWait(self._driver, 10).until(
+            EC.url_to_be(self.URL_AFTER_LOGIN))

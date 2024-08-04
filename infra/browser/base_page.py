@@ -35,3 +35,6 @@ class BasePage:
                 behavior: 'smooth'
             });
         """, element)
+
+    def get_current_url(self):
+        return self._driver.current_url
