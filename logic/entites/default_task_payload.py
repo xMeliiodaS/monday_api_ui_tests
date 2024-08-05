@@ -1,23 +1,20 @@
+from infra.config_provider import ConfigProvider
 from infra.utils import Utils
 
 
 class DefaultTaskPayload:
-    def __init__(self, board_id, column_values, pos, with_undo_data):
+    def __init__(self):
         """
         Initializes DefaultTaskPayload with the given attributes.
-
-        :param board_id: The ID of the board where the task will be created.
-        :param column_values: The values for the columns in the task.
-        :param pos: The position of the task on the board.
-        :param with_undo_data: A boolean indicating if undo data should be included.
         """
+        self.config = ConfigProvider.load_config_json()
+        default_task = self.config['create_default_task']
 
         # From here import from the config file
-        self.board_id = board_id
+        self.board_id = default_task['board_id']
         self.group_id = "new_group29179"
-        self.column_values = column_values
-        self.pos = pos
-        self.with_undo_data = with_undo_data
+        self.pos = default_task['pos']
+        self.with_undo_data = default_task['with_undo_data']
 
         self._name = None
         self.set_name()  # Set the name using the setter method
@@ -53,7 +50,6 @@ class DefaultTaskPayload:
             "board_id": self.board_id,
             "group_id": self.group_id,
             "name": self.name,
-            "column_values": self.column_values,
             "pos": self.pos,
             "with_undo_data": self.with_undo_data
         }

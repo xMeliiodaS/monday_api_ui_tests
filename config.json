@@ -14,11 +14,6 @@
   "space1": "---------------------------------------",
   "create_default_task": {
     "board_id": 1583771705,
-    "group_id": "new_group29179",
-    "name": "New Taskaaaa",
-    "column_values": {
-      "name": "New Taskaaaa"
-    },
     "pos": 195168,
     "with_undo_data": true
   },
