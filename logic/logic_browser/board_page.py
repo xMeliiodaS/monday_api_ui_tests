@@ -3,15 +3,17 @@ import time
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-
+from selenium.webdriver import ActionChains
 from infra.browser.base_page import BasePage
 
 
 class BoardPage(BasePage):
     # ------------------Locators related to the creating task------------------
-    TASK_NAME = '//div[@class="ds-text-component line-clamp"]//span[text() = "lImd9Dmw"]'
-    TASK_NAME_XPATH_PATTERN = '//div[@class="ds-text-component line-clamp"]//span[text() = "{}"]'
+    TASKS_LIST = '//div[@class="kanban-gb-compact-card-inner-component"]'
+    TASK_NAME = '//div[@class="ds-text-component line-clamp"]//span[text() = "{}"]'
     TASK_OPTIONS = '//i[@class="icon ellipsis icon-v2-ellipsis"]'
+    WORKING_ON_IT_SECTION_ID = '//div[@id="kanban-gb-card-container_0_no_group"]'
+    WORKING_ON_IT_SECTION = '//span[@class="list-name list-name-left" and text() = "Working on it"]'
     DELETE_TASK_BUTTON = '//span[text() = "Delete"]'
     DELETE_BUTTON_CONFIRMATION = '//button[text() = "Delete"]'
     FIRST_OPTION = '(//i[@class="icon ellipsis icon-v2-ellipsis"])[1]'
@@ -31,7 +33,7 @@ class BoardPage(BasePage):
         :param task_name: The name of the task to check for visibility.
         :return: True if the task is displayed, False otherwise.
         """
-        task_xpath = self.TASK_NAME_XPATH_PATTERN.format(task_name)
+        task_xpath = self.TASK_NAME.format(task_name)
         return WebDriverWait(self._driver, 15).until(
             EC.presence_of_element_located((By.XPATH, task_xpath))).is_displayed()
 
@@ -58,3 +60,27 @@ class BoardPage(BasePage):
             ).click()
 
             time.sleep(1.3)
+
+    def move_task_to_another_section(self):
+        """
+        Moves the first task in the tasks list to the 'Working On It' section.
+        """
+        # Locate the first task in the tasks list
+        task = WebDriverWait(self._driver, 15).until(
+            EC.presence_of_all_elements_located((By.XPATH, self.TASKS_LIST)))[0]
+
+        # Locate the target element representing the 'Working On It' section
+        target_element = WebDriverWait(self._driver, 15).until(
+            EC.presence_of_element_located((By.XPATH, self.WORKING_ON_IT_SECTION_ID)))
+
+        action = ActionChains(self._driver)
+        action.click_and_hold(task)
+
+        # Add a small wait to ensure the task is picked up
+        time.sleep(0.3)
+
+        # Move to the target element and add a slight wait before releasing
+        action.move_to_element(target_element).perform()
+
+        # Move the mouse a bit in the y offset
+        action.move_by_offset(0, 10).release().perform()

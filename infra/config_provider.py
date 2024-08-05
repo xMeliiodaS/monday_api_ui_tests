@@ -15,7 +15,7 @@ class ConfigProvider:
         """
         try:
             # Since we are using with modules with can't use relative path, so changed it to absolute path
-            with open(r'D:\Users\User\Desktop\Monday\monday_api_ui_tests\config.json', 'r') as f:
+            with open(r'C:\Users\Bahaa\Desktop\Monday\monday_api_ui_tests\config.json', 'r') as f:
                 return json.load(f)
         except FileNotFoundError:
             print(f"File not found. Starting with an empty library.")
