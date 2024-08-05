@@ -33,7 +33,7 @@ class TestCreateDefaultTask(unittest.TestCase):
         """
         Clean up after each test case by deleting all tasks and quitting the WebDriver instance.
         """
-        self.board_page.delete_all_tasks_from_board_v2()
+        self.board_page.delete_all_tasks_from_board()
         self.driver.quit()
 
     # ------------------------------------------------------------------------
@@ -45,6 +45,7 @@ class TestCreateDefaultTask(unittest.TestCase):
         """
         # Arrange
         default_task_data = self.config['create_default_task']
+
         default_task_payload = DefaultTaskPayload(default_task_data['board_id'],
                                                   default_task_data['column_values'], default_task_data['pos'],
                                                   default_task_data['with_undo_data'])

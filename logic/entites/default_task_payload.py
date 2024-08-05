@@ -11,6 +11,8 @@ class DefaultTaskPayload:
         :param pos: The position of the task on the board.
         :param with_undo_data: A boolean indicating if undo data should be included.
         """
+
+        # From here import from the config file
         self.board_id = board_id
         self.group_id = "new_group29179"
         self.column_values = column_values

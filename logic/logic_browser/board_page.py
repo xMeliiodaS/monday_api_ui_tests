@@ -40,7 +40,7 @@ class BoardPage(BasePage):
         return WebDriverWait(self._driver, 15).until(
             EC.presence_of_element_located((By.XPATH, task_xpath))).is_displayed()
 
-    def delete_all_tasks_from_board_v2(self):
+    def delete_all_tasks_from_board(self):
         """
         Deletes all tasks from the board by iterating through task options and clicking
         the delete button for each. Stops when no more tasks are present.

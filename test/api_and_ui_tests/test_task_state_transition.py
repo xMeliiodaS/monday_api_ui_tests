@@ -45,7 +45,7 @@ class TestTaskStateTransition(unittest.TestCase):
         """
         Clean up after each test case by deleting all tasks and quitting the WebDriver instance.
         """
-        self.board_page.delete_all_tasks_from_board_v2()
+        self.board_page.delete_all_tasks_from_board()
         self.driver.quit()
 
     def test_moving_task_to_another_section(self):
