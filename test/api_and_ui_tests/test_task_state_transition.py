@@ -36,6 +36,9 @@ class TestTaskStateTransition(unittest.TestCase):
         # Act
         new_task.post_create_task(default_task_payload.to_dict())
 
+        home_page = HomePage(self.driver)
+        home_page.click_on_the_board()
+
     # ------------------------------------------------------------------------
 
     def tearDown(self) -> None:
@@ -49,8 +52,7 @@ class TestTaskStateTransition(unittest.TestCase):
         """
         Tests the functionality of moving a task to another section on the board.
         """
-        home_page = HomePage(self.driver)
-        home_page.click_on_the_board()
-
         self.board_page = BoardPage(self.driver)
         self.board_page.move_task_to_another_section(Section.STUCK.value)
+
+

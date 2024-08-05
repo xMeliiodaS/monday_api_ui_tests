@@ -12,9 +12,10 @@ class BoardPage(BasePage):
     TASKS_LIST = '//div[@class="kanban-gb-compact-card-inner-component"]'
     TASK_NAME = '//div[@class="ds-text-component line-clamp"]//span[text() = "{}"]'
     TASK_OPTIONS = '//i[@class="icon ellipsis icon-v2-ellipsis"]'
+
+    # ------------------Locators related to deleting a Task------------------
     DELETE_TASK_BUTTON = '//span[text() = "Delete"]'
     DELETE_BUTTON_CONFIRMATION = '//button[text() = "Delete"]'
-    FIRST_OPTION = '(//i[@class="icon ellipsis icon-v2-ellipsis"])[1]'
 
     # ------------------Locators related to the Sections------------------
     WORKING_ON_IT_SECTION_ID = '//div[@id="kanban-gb-card-container_0_no_group"]'
@@ -44,24 +45,44 @@ class BoardPage(BasePage):
         Deletes all tasks from the board by iterating through task options and clicking
         the delete button for each. Stops when no more tasks are present.
         """
-        elements_length = len(WebDriverWait(self._driver, 15).until(
-            EC.presence_of_all_elements_located((By.XPATH, self.TASK_OPTIONS)))
-        )
+        elements_length = len(self.get_task_elements())
+
         for i in range(elements_length):
-            # Get the first task
-            element = self._driver.find_element(By.XPATH, self.FIRST_OPTION)
-            element.click()
-
-            WebDriverWait(self._driver, 8).until(
-                EC.element_to_be_clickable((By.XPATH, self.DELETE_TASK_BUTTON))
-            ).click()
-
-            # Wait for the confirmation button to be clickable and click it
-            WebDriverWait(self._driver, 8).until(
-                EC.element_to_be_clickable((By.XPATH, self.DELETE_BUTTON_CONFIRMATION))
-            ).click()
-
+            self.click_task_option()
+            self.click_delete_button()
+            self.confirm_deletion()
             time.sleep(1.3)
+
+    def get_task_elements(self):
+        """
+        Returns the list of task option elements on the board.
+        """
+        return WebDriverWait(self._driver, 15).until(
+            EC.presence_of_all_elements_located((By.XPATH, self.TASK_OPTIONS))
+        )
+
+    def click_task_option(self):
+        """
+        Clicks on the first task option from the task options list.
+        """
+        options = self.get_task_elements()[0]
+        options.click()
+
+    def click_delete_button(self):
+        """
+        Clicks the delete button for a task.
+        """
+        WebDriverWait(self._driver, 8).until(
+            EC.element_to_be_clickable((By.XPATH, self.DELETE_TASK_BUTTON))
+        ).click()
+
+    def confirm_deletion(self):
+        """
+        Clicks the confirmation button to finalize task deletion.
+        """
+        WebDriverWait(self._driver, 8).until(
+            EC.element_to_be_clickable((By.XPATH, self.DELETE_BUTTON_CONFIRMATION))
+        ).click()
 
     def move_task_to_another_section(self, section_name):
         """
