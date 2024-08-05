@@ -8,15 +8,17 @@ from infra.browser.base_page import BasePage
 
 
 class BoardPage(BasePage):
-    # ------------------Locators related to the creating task------------------
+    # ------------------Locators related to the Task------------------
     TASKS_LIST = '//div[@class="kanban-gb-compact-card-inner-component"]'
     TASK_NAME = '//div[@class="ds-text-component line-clamp"]//span[text() = "{}"]'
     TASK_OPTIONS = '//i[@class="icon ellipsis icon-v2-ellipsis"]'
-    WORKING_ON_IT_SECTION_ID = '//div[@id="kanban-gb-card-container_0_no_group"]'
-    WORKING_ON_IT_SECTION = '//span[@class="list-name list-name-left" and text() = "Working on it"]'
     DELETE_TASK_BUTTON = '//span[text() = "Delete"]'
     DELETE_BUTTON_CONFIRMATION = '//button[text() = "Delete"]'
     FIRST_OPTION = '(//i[@class="icon ellipsis icon-v2-ellipsis"])[1]'
+
+    # ------------------Locators related to the Sections------------------
+    WORKING_ON_IT_SECTION_ID = '//div[@id="kanban-gb-card-container_0_no_group"]'
+    SECTIONS = '//span[@class="list-name list-name-left" and text() = "{}"]'
 
     def __init__(self, driver):
         """
@@ -61,7 +63,7 @@ class BoardPage(BasePage):
 
             time.sleep(1.3)
 
-    def move_task_to_another_section(self):
+    def move_task_to_another_section(self, section_name):
         """
         Moves the first task in the tasks list to the 'Working On It' section.
         """
@@ -69,9 +71,11 @@ class BoardPage(BasePage):
         task = WebDriverWait(self._driver, 15).until(
             EC.presence_of_all_elements_located((By.XPATH, self.TASKS_LIST)))[0]
 
+        task_xpath = self.SECTIONS.format(section_name)
+
         # Locate the target element representing the 'Working On It' section
         target_element = WebDriverWait(self._driver, 15).until(
-            EC.presence_of_element_located((By.XPATH, self.WORKING_ON_IT_SECTION_ID)))
+            EC.presence_of_element_located((By.XPATH, task_xpath)))
 
         action = ActionChains(self._driver)
         action.click_and_hold(task)
@@ -83,4 +87,4 @@ class BoardPage(BasePage):
         action.move_to_element(target_element).perform()
 
         # Move the mouse a bit in the y offset
-        action.move_by_offset(0, 10).release().perform()
+        action.move_by_offset(0, 50).release().perform()

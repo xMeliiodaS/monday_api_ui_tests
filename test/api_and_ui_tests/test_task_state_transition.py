@@ -4,6 +4,7 @@ from infra.api.api_wrapper import APIWrapper
 from infra.browser.browser_wrapper import BrowserWrapper
 from infra.config_provider import ConfigProvider
 from logic.entites.default_task_payload import DefaultTaskPayload
+from logic.enum.section import Section
 from logic.logic_api.new_tasks import NewTask
 from logic.logic_browser.board_page import BoardPage
 from logic.logic_browser.home_page import HomePage
@@ -52,4 +53,4 @@ class TestTaskStateTransition(unittest.TestCase):
         home_page.click_on_the_board()
 
         self.board_page = BoardPage(self.driver)
-        self.board_page.move_task_to_another_section()
+        self.board_page.move_task_to_another_section(Section.STUCK.value)
