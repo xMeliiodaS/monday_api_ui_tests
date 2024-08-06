@@ -1,6 +1,3 @@
-from infra.config_provider import ConfigProvider
-
-
 class ArchiveItemPayload:
     def __init__(self, item_id):
         """

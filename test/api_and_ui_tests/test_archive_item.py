@@ -7,7 +7,8 @@ from logic.entites.archive_item_payload import ArchiveItemPayload
 from logic.entites.default_task_payload import DefaultTaskPayload
 from logic.logic_api.archive_task import ArchiveTask
 from logic.logic_api.new_tasks import NewTask
-from logic.logic_browser.home_page import HomePage
+from logic.logic_browser.archive_page import ArchivePage
+from logic.logic_browser.base_page_app import BasePageApp
 from logic.logic_browser.login_page import LoginPage
 
 
@@ -27,8 +28,9 @@ class TestArchiveItem(unittest.TestCase):
         login_page.login_flow(self.config["email"], self.config["password"])
 
         default_task_payload = DefaultTaskPayload()
-        new_task = NewTask(self.api_request)
+        self.task_name = default_task_payload.name
 
+        new_task = NewTask(self.api_request)
         self.task_body = new_task.post_create_task(default_task_payload.to_dict())
 
     def test_moving_item_to_archive(self):
@@ -37,3 +39,11 @@ class TestArchiveItem(unittest.TestCase):
 
         archive_task = ArchiveTask(self.api_request)
         archive_task.post_archiving_a_task(archive_task_payload.to_dict())
+
+        base_page = BasePageApp(self.driver)
+        base_page.click_on_the_menu_button()
+        base_page.click_on_the_archive_button()
+
+        archive_page = ArchivePage(self.driver)
+        self.assertTrue(archive_page.is_task_in_archive(self.task_name))
+

@@ -7,7 +7,7 @@ from logic.entites.default_task_payload import DefaultTaskPayload
 from logic.enum.section import Section
 from logic.logic_api.new_tasks import NewTask
 from logic.logic_browser.board_page import BoardPage
-from logic.logic_browser.home_page import HomePage
+from logic.logic_browser.base_page_app import BasePageApp
 from logic.logic_browser.login_page import LoginPage
 
 
@@ -32,7 +32,7 @@ class TestTaskStateTransition(unittest.TestCase):
 
         new_task.post_create_task(default_task_payload.to_dict())
 
-        home_page = HomePage(self.driver)
+        home_page = BasePageApp(self.driver)
         home_page.click_on_the_board()
 
     # ------------------------------------------------------------------------
