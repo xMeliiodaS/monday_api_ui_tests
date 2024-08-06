@@ -11,19 +11,15 @@
   "password": "Higuys192",
   "invalid_password": "HeySup632",
   "jira_email": "bahaa.abozlf57@gmail.com",
+  "board_id": 1583771705,
+  "with_undo_data": true,
   "space1": "---------------------------------------",
   "create_default_task": {
-    "board_id": 1583771705,
-    "pos": 195168,
-    "with_undo_data": true
+    "pos": 195168
   },
   "space2": "---------------------------------------",
   "create_working_on_it_task": {
-    "board_id": 1583771705,
-    "group_id": "new_group29179",
-    "name": "New Task",
     "column_values": {
-      "name": "New Task",
       "project_status": {
         "index": 0,
         "post_id": null,

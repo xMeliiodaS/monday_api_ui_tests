@@ -43,9 +43,6 @@ class TestCreateDefaultTask(unittest.TestCase):
         Tests the creation of a new default task by sending a POST
          request and verifying its appearance on the board.
         """
-        # Arrange
-        default_task_data = self.config['create_default_task']
-
         default_task_payload = DefaultTaskPayload()
         new_task = NewTask(self.api_request)
 
@@ -68,9 +65,7 @@ class TestCreateDefaultTask(unittest.TestCase):
         # Arrange
         default_task_data = self.config['create_working_on_it_task']
         project_status = default_task_data['column_values'].get('project_status')
-        default_task_payload = WorkingOnItTask(default_task_data['board_id'],
-                                               default_task_data['column_values'], default_task_data['pos'],
-                                               default_task_data['with_undo_data'], project_status)
+        default_task_payload = WorkingOnItTask()
         new_task = NewTask(self.api_request)
 
         # Create the task
