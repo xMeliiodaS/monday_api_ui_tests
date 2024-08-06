@@ -1,10 +1,12 @@
 import time
+from functools import cmp_to_key
 
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver import ActionChains, Keys
 from infra.browser.base_page import BasePage
+from test import Utils
 
 
 class BoardPage(BasePage):
@@ -133,20 +135,51 @@ class BoardPage(BasePage):
         return int(task_count_text)
 
     def click_on_sort_setting_button(self):
+        """
+        Clicks on the sort setting button to open the sorting options.
+        """
         WebDriverWait(self._driver, 15).until(
             EC.element_to_be_clickable((By.XPATH, self.SORT_SETTING_BUTTON))).click()
 
     def click_on_choose_column_button_and_apply(self):
+        """
+        Clicks on the button to choose a column for sorting and applies the selection.
+        """
         WebDriverWait(self._driver, 15).until(
             EC.element_to_be_clickable((By.XPATH, self.CHOOSE_COLUMN_BUTTON))).click()
 
     def insert_the_column_name(self, column_name):
+        """
+        Enters the column name into the search filter input field and simulates pressing the Enter key to apply the filter.
+
+        :param column_name: The name of the column to search for and select.
+        """
         input_field = WebDriverWait(self._driver, 15).until(
             EC.presence_of_all_elements_located((By.XPATH, self.INPUT_SEARCH_FILTER)))[0]
         input_field .send_keys(column_name)
         input_field .send_keys(Keys.RETURN)
+        time.sleep(1)
 
     def choose_sort_flow(self, column_name):
+        """
+        Performs the full sorting flow by clicking on the sort settings button, choosing the column to sort by, and applying the sort.
+
+        :param column_name: The name of the column to sort the tasks by.
+        """
         self.click_on_sort_setting_button()
         self.click_on_choose_column_button_and_apply()
         self.insert_the_column_name(column_name)
+
+    def check_if_tasks_is_sorted_by_name(self):
+        """
+        Checks if the tasks are sorted by name in ascending order.
+
+        :return: True if tasks are sorted by name, False otherwise.
+        """
+        elements = WebDriverWait(self._driver, 15).until(
+            EC.presence_of_all_elements_located((By.XPATH, self.TASKS_NAME)))
+
+        tasks_name = Utils.get_tasks_name(elements)
+        is_sorted = tasks_name == sorted(tasks_name)
+
+        return is_sorted

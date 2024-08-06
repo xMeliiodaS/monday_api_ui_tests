@@ -27,7 +27,7 @@ class TestSortItemByName(unittest.TestCase):
         login_page = LoginPage(self.driver)
         login_page.login_flow(self.config["email"], self.config["password"])
 
-        for i in range(5):
+        for i in range(10):
             default_task_payload = DefaultTaskPayload()
             new_task = NewTask(self.api_request)
             new_task.post_create_task(default_task_payload.to_dict())
@@ -54,4 +54,8 @@ class TestSortItemByName(unittest.TestCase):
         self.board_page = BoardPage(self.driver)
         self.board_page.choose_sort_flow("Name")
 
+        # Act
+        is_sorted_names = self.board_page.check_if_tasks_is_sorted_by_name()
 
+        # Assert
+        self.assertTrue(is_sorted_names)
