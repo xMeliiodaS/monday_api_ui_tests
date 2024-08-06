@@ -33,7 +33,7 @@ class TestArchiveItem(unittest.TestCase):
         new_task = NewTask(self.api_request)
         self.task_body = new_task.post_create_task(default_task_payload.to_dict())
 
-    def test_moving_item_to_archive(self):
+    def test_moving_item_to_archive_exist(self):
         task_id = self.task_body.data['pulse_data']['id']
         archive_task_payload = ArchiveItemPayload(task_id)
 
@@ -47,3 +47,15 @@ class TestArchiveItem(unittest.TestCase):
         archive_page = ArchivePage(self.driver)
         self.assertTrue(archive_page.is_task_in_archive(self.task_name))
 
+    def test_moving_item_to_archive_not_exist(self):
+        task_id = self.task_body.data['pulse_data']['id']
+        archive_task_payload = ArchiveItemPayload(task_id)
+
+        archive_task = ArchiveTask(self.api_request)
+        archive_task.post_archiving_a_task(archive_task_payload.to_dict())
+
+        base_page = BasePageApp(self.driver)
+        base_page.click_on_the_menu_button()
+        base_page.click_on_the_archive_button()
+
+        self.assertNotEqual(self.task_name, self.config['incorrect_task_name'])
