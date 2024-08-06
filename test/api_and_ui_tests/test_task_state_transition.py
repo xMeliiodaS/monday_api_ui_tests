@@ -44,6 +44,8 @@ class TestTaskStateTransition(unittest.TestCase):
         self.board_page.delete_all_tasks_from_board()
         self.driver.quit()
 
+    # ------------------------------------------------------------------------
+
     def test_moving_task_to_another_section(self):
         """
         Tests the functionality of moving a task to another section on the board.
@@ -57,7 +59,6 @@ class TestTaskStateTransition(unittest.TestCase):
         initial_not_started_count = self.board_page.get_task_count_in_section(current_section)
         initial_stuck_count = self.board_page.get_task_count_in_section(target_section)
 
-        # Move task from "Not Started" to "Stuck"
         # Act
         self.board_page.move_task_to_another_section(Section.STUCK.value)
 
