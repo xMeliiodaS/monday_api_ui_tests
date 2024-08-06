@@ -46,11 +46,12 @@ class TestSortItemByName(unittest.TestCase):
 
     # ------------------------------------------------------------------------
 
-    def test_moving_task_to_another_section(self):
+    def test_sorting_tasks_by_name(self):
         """
         Tests the functionality of moving a task to another section on the board.
         """
         # Arrange
         self.board_page = BoardPage(self.driver)
         self.board_page.choose_sort_flow("Name")
-        time.sleep(67)
+
+

@@ -11,6 +11,7 @@ class BoardPage(BasePage):
     # ------------------Locators related to the Task------------------
     TASKS_LIST = '//div[@class="kanban-gb-compact-card-inner-component"]'
     TASK_NAME = '//div[@class="ds-text-component line-clamp"]//span[text() = "{}"]'
+    TASKS_NAME = '//div[@class="ds-text-component line-clamp"]/span'
     TASK_OPTIONS = '//i[@class="icon ellipsis icon-v2-ellipsis"]'
 
     # ------------------Locators related to deleting a Task------------------
