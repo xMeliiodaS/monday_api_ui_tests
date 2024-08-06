@@ -25,7 +25,7 @@ class BoardPage(BasePage):
     # ------------------Locators related to the board header------------------
     SORT_SETTING_BUTTON = '//div[@class="board-filter-item-component sort-settings-component"]'
     CHOOSE_COLUMN_BUTTON = '//div[text() ="Choose column"]'
-    INPUT_SEARCH_FILTER = '//input[@id="react-select-26-input"]'
+    INPUT_SEARCH_FILTER = '//input[@aria-label="Dropdown input"]'
 
     def __init__(self, driver):
         """
@@ -141,7 +141,7 @@ class BoardPage(BasePage):
 
     def insert_the_column_name(self, column_name):
         input_field = WebDriverWait(self._driver, 15).until(
-            EC.presence_of_element_located((By.XPATH, self.INPUT_SEARCH_FILTER)))
+            EC.presence_of_all_elements_located((By.XPATH, self.INPUT_SEARCH_FILTER)))[0]
         input_field .send_keys(column_name)
         input_field .send_keys(Keys.RETURN)
 
