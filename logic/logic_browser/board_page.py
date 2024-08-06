@@ -3,7 +3,7 @@ import time
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-from selenium.webdriver import ActionChains
+from selenium.webdriver import ActionChains, Keys
 from infra.browser.base_page import BasePage
 
 
@@ -21,6 +21,11 @@ class BoardPage(BasePage):
     WORKING_ON_IT_SECTION_ID = '//div[@id="kanban-gb-card-container_0_no_group"]'
     SECTIONS_NAME = '//span[@class="list-name list-name-left" and text() = "{}"]'
     SECTIONS_TASK_COUNT = '//span[@class="list-name list-name-right" and text() = "/ 0"]'
+
+    # ------------------Locators related to the board header------------------
+    SORT_SETTING_BUTTON = '//div[@class="board-filter-item-component sort-settings-component"]'
+    CHOOSE_COLUMN_BUTTON = '//div[text() ="Choose column"]'
+    INPUT_SEARCH_FILTER = '//input[@id="react-select-26-input"]'
 
     def __init__(self, driver):
         """
@@ -125,3 +130,22 @@ class BoardPage(BasePage):
         )
         task_count_text = task_count_element.text.strip().split("/")[1].strip()
         return int(task_count_text)
+
+    def click_on_sort_setting_button(self):
+        WebDriverWait(self._driver, 15).until(
+            EC.element_to_be_clickable((By.XPATH, self.SORT_SETTING_BUTTON))).click()
+
+    def click_on_choose_column_button_and_apply(self):
+        WebDriverWait(self._driver, 15).until(
+            EC.element_to_be_clickable((By.XPATH, self.CHOOSE_COLUMN_BUTTON))).click()
+
+    def insert_the_column_name(self, column_name):
+        input_field = WebDriverWait(self._driver, 15).until(
+            EC.presence_of_element_located((By.XPATH, self.INPUT_SEARCH_FILTER)))
+        input_field .send_keys(column_name)
+        input_field .send_keys(Keys.RETURN)
+
+    def choose_sort_flow(self, column_name):
+        self.click_on_sort_setting_button()
+        self.click_on_choose_column_button_and_apply()
+        self.insert_the_column_name(column_name)

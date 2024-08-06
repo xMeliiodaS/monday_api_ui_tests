@@ -16,7 +16,7 @@ class Utils:
         :return: A random alphanumeric string of the specified length.
         """
         # Define the characters that can be used in the key
-        characters = string.ascii_letters + string.digits
+        characters = string.ascii_letters
 
         # Generate a random key
         random_key = ''.join(random.choice(characters) for _ in range(length))
