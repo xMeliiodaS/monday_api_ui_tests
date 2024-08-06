@@ -27,6 +27,8 @@ class TestCreateDefaultTask(unittest.TestCase):
         login_page = LoginPage(self.driver)
         login_page.login_flow(self.config["email"], self.config["password"])
 
+        self.new_task = NewTask(self.api_request)
+
     # ------------------------------------------------------------------------
 
     def tearDown(self) -> None:
@@ -44,14 +46,14 @@ class TestCreateDefaultTask(unittest.TestCase):
          request and verifying its appearance on the board.
         """
         default_task_payload = DefaultTaskPayload()
-        new_task = NewTask(self.api_request)
 
         # Act
-        new_task.post_create_task(default_task_payload.to_dict())
+        self.new_task.post_create_task(default_task_payload.to_dict())
 
         home_page = HomePage(self.driver)
         home_page.click_on_the_board()
 
+        # Assert
         self.board_page = BoardPage(self.driver)
         self.assertTrue(self.board_page.is_task_name_displayed(default_task_payload.name))
 
@@ -63,16 +65,14 @@ class TestCreateDefaultTask(unittest.TestCase):
          sending a POST request and verifying its appearance on the board.
         """
         # Arrange
-        default_task_data = self.config['create_working_on_it_task']
-        project_status = default_task_data['column_values'].get('project_status')
         default_task_payload = WorkingOnItTask()
-        new_task = NewTask(self.api_request)
 
-        # Create the task
-        new_task.post_create_task(default_task_payload.to_dict())
+        # Act
+        self.new_task.post_create_task(default_task_payload.to_dict())
 
         home_page = HomePage(self.driver)
         home_page.click_on_the_board()
 
+        # Assert
         self.board_page = BoardPage(self.driver)
         self.assertTrue(self.board_page.is_task_name_displayed(default_task_payload.name))

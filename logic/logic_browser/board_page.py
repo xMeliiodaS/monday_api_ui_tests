@@ -19,7 +19,8 @@ class BoardPage(BasePage):
 
     # ------------------Locators related to the Sections------------------
     WORKING_ON_IT_SECTION_ID = '//div[@id="kanban-gb-card-container_0_no_group"]'
-    SECTIONS = '//span[@class="list-name list-name-left" and text() = "{}"]'
+    SECTIONS_NAME = '//span[@class="list-name list-name-left" and text() = "{}"]'
+    SECTIONS_TASK_COUNT = '//span[@class="list-name list-name-right" and text() = "/ 0"]'
 
     def __init__(self, driver):
         """
@@ -92,7 +93,7 @@ class BoardPage(BasePage):
         task = WebDriverWait(self._driver, 15).until(
             EC.presence_of_all_elements_located((By.XPATH, self.TASKS_LIST)))[0]
 
-        task_xpath = self.SECTIONS.format(section_name)
+        task_xpath = self.SECTIONS_NAME.format(section_name)
 
         # Locate the target element representing the 'Working On It' section
         target_element = WebDriverWait(self._driver, 15).until(
@@ -109,3 +110,18 @@ class BoardPage(BasePage):
 
         # Move the mouse a bit in the y offset
         action.move_by_offset(0, 50).release().perform()
+
+    def get_task_count_in_section(self, section_name):
+        """
+        Gets the number of tasks in a specific section by name.
+
+        :param section_name: The name of the section.
+        :return: The count of tasks in the specified section.
+        """
+        task_count_xpath = self.SECTIONS_NAME.format(
+            section_name) + "/following-sibling::span[contains(@class, 'list-name list-name-right')]"
+        task_count_element = WebDriverWait(self._driver, 15).until(
+            EC.presence_of_element_located((By.XPATH, task_count_xpath))
+        )
+        task_count_text = task_count_element.text.strip().split("/")[1].strip()
+        return int(task_count_text)

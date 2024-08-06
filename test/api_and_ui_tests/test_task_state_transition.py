@@ -27,13 +27,9 @@ class TestTaskStateTransition(unittest.TestCase):
         login_page = LoginPage(self.driver)
         login_page.login_flow(self.config["email"], self.config["password"])
 
-        default_task_data = self.config['create_default_task']
-        default_task_payload = DefaultTaskPayload(default_task_data['board_id'],
-                                                  default_task_data['column_values'], default_task_data['pos'],
-                                                  default_task_data['with_undo_data'])
+        default_task_payload = DefaultTaskPayload()
         new_task = NewTask(self.api_request)
 
-        # Act
         new_task.post_create_task(default_task_payload.to_dict())
 
         home_page = HomePage(self.driver)
@@ -52,7 +48,23 @@ class TestTaskStateTransition(unittest.TestCase):
         """
         Tests the functionality of moving a task to another section on the board.
         """
+        # Arrange
+        current_section = Section.NOT_STARTED.value
+        target_section = Section.STUCK.value
         self.board_page = BoardPage(self.driver)
+
+        # Verify initial state counts
+        initial_not_started_count = self.board_page.get_task_count_in_section(current_section)
+        initial_stuck_count = self.board_page.get_task_count_in_section(target_section)
+
+        # Move task from "Not Started" to "Stuck"
+        # Act
         self.board_page.move_task_to_another_section(Section.STUCK.value)
 
+        # Verify final state counts
+        final_not_started_count = self.board_page.get_task_count_in_section(current_section)
+        final_stuck_count = self.board_page.get_task_count_in_section(target_section)
 
+        # Assert
+        self.assertEqual(initial_not_started_count - 1, final_not_started_count)
+        self.assertEqual(initial_stuck_count + 1, final_stuck_count)
