@@ -39,6 +39,7 @@ class BoardPage(BasePage):
     # ------------------Locators related to searching a task------------------
     SEARCH_BUTTON = '//div[@class="board-filter-input-wrapper_v2"]'
     SEARCH_INPUT = '//input[@placeholder = "Type to filter"]'
+    CLEAR_SEARCH_BUTTON = '//button[@aria-label="Clear search"]'
 
     def __init__(self, driver):
         """
@@ -286,3 +287,17 @@ class BoardPage(BasePage):
             EC.presence_of_element_located((By.XPATH, task_xpath))).is_displayed()
 
         return is_only_one_task and is_the_task_name_displayed
+
+    def check_if_searched_task_does_not_appear(self):
+        """
+        Checks if no tasks appear in the search results.
+
+        :return: True if no tasks are displayed, False otherwise.
+        """
+        time.sleep(2)
+        elements = self._driver.find_elements(By.XPATH, self.TASKS_LIST)
+        return len(elements) == 0
+
+    def click_on_clear_search(self):
+        WebDriverWait(self._driver, 15).until(
+            EC.element_to_be_clickable((By.XPATH, self.CLEAR_SEARCH_BUTTON))).click()

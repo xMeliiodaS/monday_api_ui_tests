@@ -32,10 +32,13 @@ class TestSearchTask(unittest.TestCase):
 
         self.board_page.create_tasks_with_names(self.task_names)
 
+        self.board_page.click_on_search_button()
+
     def tearDown(self) -> None:
         """
         Clean up after each test case by quitting the WebDriver instance.
         """
+        self.board_page.click_on_clear_search()
         self.board_page.delete_all_tasks_from_board()
         self.driver.quit()
 
@@ -47,12 +50,26 @@ class TestSearchTask(unittest.TestCase):
         task_name = self.task_names[0]
 
         # Act
-        self.board_page.click_on_search_button()
+
         self.board_page.fill_search_input(task_name)
         is_task_appeared = self.board_page.check_if_searched_task_appear(task_name)
 
         # Assert
         self.assertTrue(is_task_appeared, "The searched task was not found or multiple tasks are displayed.")
+
+    def test_search_task_by_name_negative(self):
+        """
+        Test the search functionality by task name.
+        """
+        # Arrange
+        self.board_page.click_on_search_button()
+
+        # Act
+        self.board_page.fill_search_input(self.config['incorrect_task_name'])
+        is_task_dont_appeared = self.board_page.check_if_searched_task_does_not_appear()
+
+        # Assert
+        self.assertTrue(is_task_dont_appeared, "A single tasks are displayed.")
 
 
 if __name__ == '__main__':
