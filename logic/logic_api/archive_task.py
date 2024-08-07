@@ -17,6 +17,12 @@ class ArchiveTask:
         self.config = ConfigProvider.load_config_json()
 
     def post_archiving_a_task(self, task_payload):
+        """
+        Sends a POST request to archive a task using the provided task payload.
+
+        :param task_payload: The payload containing task information to be archived.
+        :return: The response from the POST request.
+        """
         url = f"{self.config['api_url']}"
         return self._request.post_request(url, self.config["header"], task_payload)
 

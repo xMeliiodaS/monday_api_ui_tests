@@ -5,13 +5,13 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver import ActionChains, Keys
 from infra.browser.base_page import BasePage
-from test import Utils
+from logic.utils import Utils as logic_utils
+from infra.utils import Utils
 
 
 class BoardPage(BasePage):
     # ------------------Locators related to creating a Task------------------
     NEW_TASK_BUTTON = '//button[text() = "New task"]'
-    NAME_THE_TASK_BUTTON = '//div[@class="ds-text-component"]/span[text() ="New Task"]'
     TASK_NAME_INPUT = '//input[@value ="New Task"]'
     CREATE_TASK_BUTTON = '//button[text() ="Create Task"]'
 
@@ -193,8 +193,8 @@ class BoardPage(BasePage):
         """
         elements = WebDriverWait(self._driver, 15).until(
             EC.presence_of_all_elements_located((By.XPATH, self.TASKS_NAME)))
+        tasks_name = logic_utils.get_tasks_name(elements)
 
-        tasks_name = Utils.get_tasks_name(elements)
         is_sorted = tasks_name == sorted(tasks_name)
 
         return is_sorted
@@ -203,42 +203,66 @@ class BoardPage(BasePage):
 
     def click_on_new_task_button(self):
         """
-        Clicks on the button to choose a column for sorting and applies the selection.
+        Clicks on the button to create a new task and waits until it is clickable.
         """
         WebDriverWait(self._driver, 15).until(
             EC.element_to_be_clickable((By.XPATH, self.NEW_TASK_BUTTON))).click()
 
-    def click_on_task_name_to_name_it(self):
-        """
-        Clicks on the button to choose a column for sorting and applies the selection.
-        """
-        WebDriverWait(self._driver, 15).until(
-            EC.element_to_be_clickable((By.XPATH, self.NAME_THE_TASK_BUTTON))).click()
-
     def fill_task_name_input(self, task_name):
         """
-        Clicks on the button to choose a column for sorting and applies the selection.
+        Fills the task name input field with the provided task name.
         """
         WebDriverWait(self._driver, 15).until(
             EC.element_to_be_clickable((By.XPATH, self.TASK_NAME_INPUT))).send_keys(task_name)
 
     def click_on_create_task_button(self):
         """
-        Clicks on the button to choose a column for sorting and applies the selection.
+        Clicks on the button to create a task and waits until it is clickable.
         """
         WebDriverWait(self._driver, 15).until(
             EC.element_to_be_clickable((By.XPATH, self.CREATE_TASK_BUTTON))).click()
 
+    def create_tasks_with_names(self, task_names):
+        """
+        Creates multiple tasks using the provided list of task names.
+
+        :param task_names: A list of task names to use for creating tasks.
+        """
+        for name in task_names:
+            self.click_on_new_task_button()
+            time.sleep(1)
+            self.fill_task_name_input(name)
+            time.sleep(1)
+            self.click_on_create_task_button()
+            time.sleep(1)
+
     def click_on_search_button(self):
         """
-        Clicks on the button to choose a column for sorting and applies the selection.
+        Clicks on the search button and waits until it is clickable.
         """
         WebDriverWait(self._driver, 15).until(
-            EC.element_to_be_clickable((By.XPATH, self.SEARCH_BUTTON))).click()
+            EC.presence_of_element_located((By.XPATH, self.SEARCH_BUTTON))).click()
 
     def fill_search_input(self, task_name):
         """
-        Clicks on the button to choose a column for sorting and applies the selection.
+        Fills the search input field with the provided task name.
         """
         WebDriverWait(self._driver, 15).until(
-            EC.element_to_be_clickable((By.XPATH, self.SEARCH_INPUT))).send_keys(task_name)
+            EC.presence_of_element_located((By.XPATH, self.SEARCH_INPUT))).send_keys(task_name)
+
+    def check_if_searched_task_appear(self, task_name):
+        """
+        Checks if the searched task appears in the search results.
+
+        :param task_name: The name of the task to verify.
+        :return: True if only one task is displayed and its name matches the searched task, False otherwise.
+        """
+        time.sleep(2)
+        is_only_one_task = len(WebDriverWait(self._driver, 15).until(
+            EC.presence_of_all_elements_located((By.XPATH, self.TASKS_LIST)))) == 1
+
+        task_xpath = self.TASK_NAME.format(task_name)
+        is_the_task_name_displayed = WebDriverWait(self._driver, 15).until(
+            EC.presence_of_element_located((By.XPATH, task_xpath))).is_displayed()
+
+        return is_only_one_task and is_the_task_name_displayed

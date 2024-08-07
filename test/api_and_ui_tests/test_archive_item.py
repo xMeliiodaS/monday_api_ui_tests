@@ -37,6 +37,9 @@ class TestArchiveItem(unittest.TestCase):
         self.archive_task_payload = ArchiveItemPayload(task_id)
 
     def test_moving_item_to_archive_exist(self):
+        """
+        Tests the functionality of archiving an item and verifies that the item is present in the archive.
+        """
         # Act
         archive_task = ArchiveTask(self.api_request)
         archive_task.post_archiving_a_task(self.archive_task_payload.to_dict())
@@ -44,7 +47,8 @@ class TestArchiveItem(unittest.TestCase):
         base_page = BasePageApp(self.driver)
         base_page.click_on_the_menu_button()
         base_page.click_on_the_archive_button()
+        archive_page = ArchivePage(self.driver)
 
         # Assert
-        archive_page = ArchivePage(self.driver)
-        self.assertTrue(archive_page.is_task_in_archive(self.task_name))
+        self.assertTrue(archive_page.is_task_in_archive(self.task_name),
+                        "The task is not present in the archive")

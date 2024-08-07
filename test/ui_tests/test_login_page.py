@@ -35,7 +35,7 @@ class TestLoginPage(unittest.TestCase):
         login_page.login_flow(self.config["email"], self.config["password"])
 
         # Assert
-        self.assertTrue(login_page.is_login_successful())
+        self.assertTrue(login_page.is_login_successful(), "Login was not successful.")
 
     def test_login_unsuccessful(self):
         """
@@ -48,4 +48,4 @@ class TestLoginPage(unittest.TestCase):
         login_page.login_flow(self.config["email"], self.config["invalid_password"])
 
         # Assert
-        self.assertTrue(login_page.is_login_error_displayed())
+        self.assertTrue(login_page.is_login_error_displayed(), "Login error was not displayed.")

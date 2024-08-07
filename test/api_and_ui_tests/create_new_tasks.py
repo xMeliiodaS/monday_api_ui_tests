@@ -53,9 +53,11 @@ class TestCreateDefaultTask(unittest.TestCase):
         home_page = BasePageApp(self.driver)
         home_page.click_on_the_board()
 
-        # Assert
         self.board_page = BoardPage(self.driver)
-        self.assertTrue(self.board_page.is_task_name_displayed(default_task_payload.name))
+
+        # Assert
+        self.assertTrue(self.board_page.is_task_name_displayed(default_task_payload.name),
+                        "The default task is not displayed on the board")
 
     # ------------------------------------------------------------------------
 
@@ -73,6 +75,13 @@ class TestCreateDefaultTask(unittest.TestCase):
         home_page = BasePageApp(self.driver)
         home_page.click_on_the_board()
 
-        # Assert
         self.board_page = BoardPage(self.driver)
-        self.assertTrue(self.board_page.is_task_name_displayed(default_task_payload.name))
+
+        # Assert
+        self.assertTrue(self.board_page.is_task_name_displayed(default_task_payload.name),
+                        "The 'working on it' task is not displayed on the board")
+
+
+
+
+

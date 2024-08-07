@@ -22,3 +22,13 @@ class Utils:
         random_key = ''.join(random.choice(characters) for _ in range(length))
 
         return random_key
+
+    @staticmethod
+    def generate_task_names(count):
+        """
+        Generates a list of random task names.
+
+        :param count: The number of task names to generate.
+        :return: A list of random task names.
+        """
+        return [Utils.generate_random_string() for _ in range(count)]

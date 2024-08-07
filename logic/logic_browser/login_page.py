@@ -77,5 +77,12 @@ class LoginPage(BasePage):
             EC.presence_of_element_located((By.XPATH, self.ERROR_LOGIN_TEXT))).is_displayed()
 
     def is_login_successful(self):
+        """
+        Checks if the login was successful by verifying that the current
+         URL matches the expected URL after login.
+
+        :return: True if the current URL matches the expected URL,
+         indicating a successful login, otherwise False.
+        """
         return WebDriverWait(self._driver, 10).until(
             EC.url_to_be(self.URL_AFTER_LOGIN))

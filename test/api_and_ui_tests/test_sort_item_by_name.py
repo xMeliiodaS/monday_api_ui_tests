@@ -26,10 +26,13 @@ class TestSortItemByName(unittest.TestCase):
         login_page = LoginPage(self.driver)
         login_page.login_flow(self.config["email"], self.config["password"])
 
-        for i in range(5):
-            default_task_payload = DefaultTaskPayload()
-            new_task = NewTask(self.api_request)
-            new_task.post_create_task(default_task_payload.to_dict())
+        # for i in range(5):
+        #     default_task_payload = DefaultTaskPayload()
+        #     new_task = NewTask(self.api_request)
+        #     new_task.post_create_task(default_task_payload.to_dict())
+
+        new_task = NewTask(self.api_request)
+        new_task.post_create_multiple_tasks(4)
 
         home_page = BasePageApp(self.driver)
         home_page.click_on_the_board()
@@ -58,4 +61,4 @@ class TestSortItemByName(unittest.TestCase):
         is_sorted_names = self.board_page.check_if_tasks_is_sorted_by_name()
 
         # Assert
-        self.assertTrue(is_sorted_names)
+        self.assertTrue(is_sorted_names, "Tasks are not sorted correctly by the 'Name' column")

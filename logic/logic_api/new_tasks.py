@@ -1,4 +1,5 @@
 from infra.config_provider import ConfigProvider
+from logic.entites.default_task_payload import DefaultTaskPayload
 
 
 class NewTask:
@@ -28,4 +29,14 @@ class NewTask:
         :return: The response from the POST request.
         """
         url = f"{self.config['url']}{self.ENDPOINT}"
-        return self._request.post_request(url, self.config["header"], task_payload)
+        return self._request.post_request(url, self.config["header"], task_payload.to_dict())
+
+    def post_create_multiple_tasks(self, count):
+        """
+        Sends POST requests to create multiple tasks using the DefaultTaskPayload.
+
+        :param count: The number of tasks to be created.
+        """
+        for i in range(count):
+            default_task_payload = DefaultTaskPayload()
+            self.post_create_task(default_task_payload)

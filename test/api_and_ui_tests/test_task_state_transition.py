@@ -67,5 +67,8 @@ class TestTaskStateTransition(unittest.TestCase):
         final_stuck_count = self.board_page.get_task_count_in_section(target_section)
 
         # Assert
-        self.assertEqual(initial_not_started_count - 1, final_not_started_count)
-        self.assertEqual(initial_stuck_count + 1, final_stuck_count)
+        self.assertEqual(initial_not_started_count - 1, final_not_started_count,
+                         "Task count in 'Not Started' section did not decrease by 1")
+
+        self.assertEqual(initial_stuck_count + 1, final_stuck_count,
+                         "Task count in 'Stuck' section did not increase by 1")

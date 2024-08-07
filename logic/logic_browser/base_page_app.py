@@ -29,9 +29,15 @@ class BasePageApp(BasePage):
             EC.element_to_be_clickable((By.XPATH, self.BOARD_BUTTON))).click()
 
     def click_on_the_menu_button(self):
+        """
+        Clicks on the menu button and waits until it is clickable.
+        """
         WebDriverWait(self._driver, 10).until(
             EC.element_to_be_clickable((By.XPATH, self.MENU_BUTTON))).click()
 
     def click_on_the_archive_button(self):
+        """
+        Clicks on the archive button and waits until it is clickable.
+        """
         WebDriverWait(self._driver, 10).until(
             EC.element_to_be_clickable((By.XPATH, self.ARCHIVE_BUTTON))).click()
