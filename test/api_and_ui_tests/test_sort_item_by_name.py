@@ -57,11 +57,12 @@ class TestSortItemByName(unittest.TestCase):
         self.assertTrue(is_sorted_names, "Tasks are not sorted correctly by the 'Name' column")
 
     def test_sorting_tasks_by_name_negative(self):
+        """
+        Tests the functionality of invalid sorting tasks by the 'Name' column and
+        verifies that the tasks are not sorted in ascending order.
+        """
         # Act
-        shuffled_tasks_name = self.board_page.shuffle_tasks_name()
-
-        # Check if the shuffled list is sorted
-        is_sorted_after_shuffle = shuffled_tasks_name == sorted(shuffled_tasks_name)
+        is_unsorted = self.board_page.shuffle_tasks_name()
 
         # Assert
-        self.assertFalse(is_sorted_after_shuffle, "Tasks should not be sorted after shuffling.")
+        self.assertTrue(is_unsorted, "Tasks are still sorted after shuffling.")

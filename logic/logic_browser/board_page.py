@@ -202,18 +202,22 @@ class BoardPage(BasePage):
 
     def shuffle_tasks_name(self):
         """
-        Shuffles the task names and returns the shuffled list.
+        Shuffles the tasks names to create an unsorted list and checks if they are sorted.
 
-        :return: List of shuffled task names.
+        :return: True if tasks are still sorted, False otherwise.
         """
         elements = WebDriverWait(self._driver, 15).until(
             EC.presence_of_all_elements_located((By.XPATH, self.TASKS_NAME)))
         tasks_name = logic_utils.get_tasks_name(elements)
 
-        shuffled_tasks_name = tasks_name.copy()
+        # Shuffle the tasks names
+        shuffled_tasks_name = tasks_name[:]
         random.shuffle(shuffled_tasks_name)
 
-        return shuffled_tasks_name
+        # Check if the shuffled list is sorted
+        is_sorted_after_shuffle = shuffled_tasks_name == sorted(shuffled_tasks_name)
+
+        return not is_sorted_after_shuffle
 
     # ------------------------------------------------------------------------
 
