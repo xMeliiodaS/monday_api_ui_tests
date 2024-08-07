@@ -30,7 +30,7 @@ class BasePageApp(BasePage):
         WebDriverWait(self._driver, 10).until(
             EC.element_to_be_clickable((By.XPATH, self.BOARD_BUTTON))).click()
 
-    def click_on_the_dashboard_and_reporting_BUTTON(self):
+    def click_on_the_dashboard_and_reporting_button(self):
         """
         Clicks the board button on the home page after ensuring it's clickable.
         """

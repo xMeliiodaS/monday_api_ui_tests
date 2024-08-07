@@ -7,6 +7,7 @@ from logic.enum.section import Section
 from logic.logic_api.new_tasks import NewTask
 from logic.logic_browser.board_page import BoardPage
 from logic.logic_browser.base_page_app import BasePageApp
+from logic.logic_browser.dashboard_and_reporting_page import DashboardAndReportingPage
 from logic.logic_browser.login_page import LoginPage
 
 
@@ -54,4 +55,13 @@ class TestTaskMovementAndStatusUpdate(unittest.TestCase):
         as the board.
         """
         # Arrange
-        sections_dict = self.board_page.get_task_count_in_each_section()
+        sections_dict_in_board = self.board_page.get_task_count_in_each_section()
+
+        dashboard_and_reporting = DashboardAndReportingPage(self.driver)
+        dashboard_and_reporting.click_on_the_dashboard_and_reporting_button()
+
+        # Act
+        sections_dict_in_dashboard = dashboard_and_reporting.get_task_count_in_each_section()
+
+        # Assert
+        self.assertDictEqual(sections_dict_in_board, sections_dict_in_dashboard)

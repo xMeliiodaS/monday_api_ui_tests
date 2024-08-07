@@ -5,12 +5,12 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver import ActionChains, Keys
-from infra.browser.base_page import BasePage
 from logic.enum.section import Section
+from logic.logic_browser.base_page_app import BasePageApp
 from logic.utils import Utils as LogicUtils
 
 
-class BoardPage(BasePage):
+class BoardPage(BasePageApp):
     # ------------------Locators related to creating a Task------------------
     NEW_TASK_BUTTON = '//button[text() = "New task"]'
     TASK_NAME_INPUT = '//input[@value ="New Task"]'
