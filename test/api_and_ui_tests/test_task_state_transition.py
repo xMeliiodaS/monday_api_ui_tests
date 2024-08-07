@@ -33,7 +33,7 @@ class TestTaskStateTransition(unittest.TestCase):
         new_task.post_create_task(default_task_payload.to_dict())
 
         home_page = BasePageApp(self.driver)
-        home_page.click_on_the_board()
+        home_page.click_on_the_board_button()
 
     # ------------------------------------------------------------------------
 

@@ -6,8 +6,8 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver import ActionChains, Keys
 from infra.browser.base_page import BasePage
-from logic.utils import Utils as logic_utils
-from infra.utils import Utils
+from logic.enum.section import Section
+from logic.utils import Utils as LogicUtils
 
 
 class BoardPage(BasePage):
@@ -27,9 +27,7 @@ class BoardPage(BasePage):
     DELETE_BUTTON_CONFIRMATION = '//button[text() = "Delete"]'
 
     # ------------------Locators related to the Sections------------------
-    WORKING_ON_IT_SECTION_ID = '//div[@id="kanban-gb-card-container_0_no_group"]'
     SECTIONS_NAME = '//span[@class="list-name list-name-left" and text() = "{}"]'
-    SECTIONS_TASK_COUNT = '//span[@class="list-name list-name-right" and text() = "/ 0"]'
 
     # ------------------Locators related to the board header------------------
     SORT_SETTING_BUTTON = '//div[@class="board-filter-item-component sort-settings-component"]'
@@ -108,13 +106,13 @@ class BoardPage(BasePage):
 
     # ------------------------------------------------------------------------
 
-    def move_task_to_another_section(self, section_name):
+    def move_task_to_another_section(self, section_name, task_index=0):
         """
         Moves the first task in the tasks list to the 'Working On It' section.
         """
         # Locate the first task in the tasks list
         task = WebDriverWait(self._driver, 15).until(
-            EC.presence_of_all_elements_located((By.XPATH, self.TASKS_LIST)))[0]
+            EC.presence_of_all_elements_located((By.XPATH, self.TASKS_LIST)))[task_index]
 
         task_xpath = self.SECTIONS_NAME.format(section_name)
 
@@ -134,6 +132,17 @@ class BoardPage(BasePage):
         # Move the mouse a bit in the y offset
         action.move_by_offset(0, 50).release().perform()
 
+    def move_tasks_to_another_section(self, section_name, tasks_count):
+        """
+        Moves the specified number of tasks to the given section.
+
+        :param section_name: The name of the target section to move tasks to.
+        :param tasks_count: The number of tasks to move.
+        """
+        for i in range(tasks_count):
+            # Move the task at the current index
+            self.move_task_to_another_section(section_name, i)
+
     def get_task_count_in_section(self, section_name):
         """
         Gets the number of tasks in a specific section by name.
@@ -148,6 +157,19 @@ class BoardPage(BasePage):
         )
         task_count_text = task_count_element.text.strip().split("/")[1].strip()
         return int(task_count_text)
+
+    def get_task_count_in_each_section(self):
+        """
+        Gets the number of tasks in each specified section.
+
+        :return: A dictionary with section names as keys and task counts as values.
+        """
+        task_counts = {}
+
+        sections = [Section.WORKING_ON_IT.value, Section.STUCK.value, Section.DONE.value]
+        for section in sections:
+            task_counts[section] = self.get_task_count_in_section(section)
+        return task_counts
 
     # ------------------------------------------------------------------------
 
@@ -195,7 +217,7 @@ class BoardPage(BasePage):
         """
         elements = WebDriverWait(self._driver, 15).until(
             EC.presence_of_all_elements_located((By.XPATH, self.TASKS_NAME)))
-        tasks_name = logic_utils.get_tasks_name(elements)
+        tasks_name = LogicUtils.get_tasks_name(elements)
 
         is_sorted = tasks_name == sorted(tasks_name)
 
@@ -209,7 +231,7 @@ class BoardPage(BasePage):
         """
         elements = WebDriverWait(self._driver, 15).until(
             EC.presence_of_all_elements_located((By.XPATH, self.TASKS_NAME)))
-        tasks_name = logic_utils.get_tasks_name(elements)
+        tasks_name = LogicUtils.get_tasks_name(elements)
 
         # Shuffle the tasks names
         shuffled_tasks_name = tasks_name[:]
