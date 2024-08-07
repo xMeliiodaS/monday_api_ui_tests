@@ -18,7 +18,7 @@ class WorkingOnItTask:
             "project_status": default_task['column_values']['project_status']
         }
         self.pos = default_task['pos']
-        self.with_undo_data = default_task['with_undo_data']
+        self.with_undo_data = self.config['with_undo_data']
 
         self._name = None
         self.set_name()  # Set the name using the setter method

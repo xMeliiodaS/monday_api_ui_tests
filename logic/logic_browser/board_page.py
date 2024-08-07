@@ -1,5 +1,4 @@
 import time
-from functools import cmp_to_key
 
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -10,6 +9,12 @@ from test import Utils
 
 
 class BoardPage(BasePage):
+    # ------------------Locators related to creating a Task------------------
+    NEW_TASK_BUTTON = '//button[text() = "New task"]'
+    NAME_THE_TASK_BUTTON = '//div[@class="ds-text-component"]/span[text() ="New Task"]'
+    TASK_NAME_INPUT = '//input[@value ="New Task"]'
+    CREATE_TASK_BUTTON = '//button[text() ="Create Task"]'
+
     # ------------------Locators related to the Task------------------
     TASKS_LIST = '//div[@class="kanban-gb-compact-card-inner-component"]'
     TASK_NAME = '//div[@class="ds-text-component line-clamp"]//span[text() = "{}"]'
@@ -30,6 +35,10 @@ class BoardPage(BasePage):
     CHOOSE_COLUMN_BUTTON = '//div[text() ="Choose column"]'
     INPUT_SEARCH_FILTER = '//input[@aria-label="Dropdown input"]'
 
+    # ------------------Locators related to searching a task------------------
+    SEARCH_BUTTON = '//div[@class="board-filter-input-wrapper_v2"]'
+    SEARCH_INPUT = '//input[@placeholder = "Type to filter"]'
+
     def __init__(self, driver):
         """
         Initializes the BoardPage with the provided WebDriver instance.
@@ -37,6 +46,8 @@ class BoardPage(BasePage):
         :param driver: The WebDriver instance to use for browser interactions.
         """
         super().__init__(driver)
+
+    # ------------------------------------------------------------------------
 
     def is_task_name_displayed(self, task_name):
         """
@@ -93,6 +104,8 @@ class BoardPage(BasePage):
             EC.element_to_be_clickable((By.XPATH, self.DELETE_BUTTON_CONFIRMATION))
         ).click()
 
+    # ------------------------------------------------------------------------
+
     def move_task_to_another_section(self, section_name):
         """
         Moves the first task in the tasks list to the 'Working On It' section.
@@ -134,6 +147,8 @@ class BoardPage(BasePage):
         task_count_text = task_count_element.text.strip().split("/")[1].strip()
         return int(task_count_text)
 
+    # ------------------------------------------------------------------------
+
     def click_on_sort_setting_button(self):
         """
         Clicks on the sort setting button to open the sorting options.
@@ -156,8 +171,8 @@ class BoardPage(BasePage):
         """
         input_field = WebDriverWait(self._driver, 15).until(
             EC.presence_of_all_elements_located((By.XPATH, self.INPUT_SEARCH_FILTER)))[0]
-        input_field .send_keys(column_name)
-        input_field .send_keys(Keys.RETURN)
+        input_field.send_keys(column_name)
+        input_field.send_keys(Keys.RETURN)
         time.sleep(1)
 
     def choose_sort_flow(self, column_name):
@@ -183,3 +198,47 @@ class BoardPage(BasePage):
         is_sorted = tasks_name == sorted(tasks_name)
 
         return is_sorted
+
+    # ------------------------------------------------------------------------
+
+    def click_on_new_task_button(self):
+        """
+        Clicks on the button to choose a column for sorting and applies the selection.
+        """
+        WebDriverWait(self._driver, 15).until(
+            EC.element_to_be_clickable((By.XPATH, self.NEW_TASK_BUTTON))).click()
+
+    def click_on_task_name_to_name_it(self):
+        """
+        Clicks on the button to choose a column for sorting and applies the selection.
+        """
+        WebDriverWait(self._driver, 15).until(
+            EC.element_to_be_clickable((By.XPATH, self.NAME_THE_TASK_BUTTON))).click()
+
+    def fill_task_name_input(self, task_name):
+        """
+        Clicks on the button to choose a column for sorting and applies the selection.
+        """
+        WebDriverWait(self._driver, 15).until(
+            EC.element_to_be_clickable((By.XPATH, self.TASK_NAME_INPUT))).send_keys(task_name)
+
+    def click_on_create_task_button(self):
+        """
+        Clicks on the button to choose a column for sorting and applies the selection.
+        """
+        WebDriverWait(self._driver, 15).until(
+            EC.element_to_be_clickable((By.XPATH, self.CREATE_TASK_BUTTON))).click()
+
+    def click_on_search_button(self):
+        """
+        Clicks on the button to choose a column for sorting and applies the selection.
+        """
+        WebDriverWait(self._driver, 15).until(
+            EC.element_to_be_clickable((By.XPATH, self.SEARCH_BUTTON))).click()
+
+    def fill_search_input(self, task_name):
+        """
+        Clicks on the button to choose a column for sorting and applies the selection.
+        """
+        WebDriverWait(self._driver, 15).until(
+            EC.element_to_be_clickable((By.XPATH, self.SEARCH_INPUT))).send_keys(task_name)

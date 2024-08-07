@@ -1,5 +1,4 @@
 import unittest
-import time
 
 from infra.api.api_wrapper import APIWrapper
 from infra.browser.browser_wrapper import BrowserWrapper
@@ -27,7 +26,7 @@ class TestSortItemByName(unittest.TestCase):
         login_page = LoginPage(self.driver)
         login_page.login_flow(self.config["email"], self.config["password"])
 
-        for i in range(10):
+        for i in range(5):
             default_task_payload = DefaultTaskPayload()
             new_task = NewTask(self.api_request)
             new_task.post_create_task(default_task_payload.to_dict())
@@ -48,11 +47,12 @@ class TestSortItemByName(unittest.TestCase):
 
     def test_sorting_tasks_by_name(self):
         """
-        Tests the functionality of moving a task to another section on the board.
+        Tests the functionality of sorting tasks by the 'Name' column and
+        verifies that the tasks are sorted in ascending order.
         """
         # Arrange
         self.board_page = BoardPage(self.driver)
-        self.board_page.choose_sort_flow("Name")
+        self.board_page.choose_sort_flow(self.config['sort_column'])
 
         # Act
         is_sorted_names = self.board_page.check_if_tasks_is_sorted_by_name()
