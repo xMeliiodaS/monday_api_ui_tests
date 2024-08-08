@@ -3,7 +3,9 @@ import unittest
 from infra.api.api_wrapper import APIWrapper
 from infra.config_provider import ConfigProvider
 from logic.entites.create_board_payload import CreateBoardPayload
+from logic.entites.delete_board_payload import DeleteBoardPayload
 from logic.logic_api.create_board import CreateBoard
+from logic.logic_api.delete_board import DeleteBoard
 
 
 class TestCreateBoardAPI(unittest.TestCase):
@@ -21,7 +23,9 @@ class TestCreateBoardAPI(unittest.TestCase):
         """
         Clean up after each test case by deleting all tasks and quitting the WebDriver instance.
         """
-        pass
+        delete_board_payload = DeleteBoardPayload(self.board_id)
+        delete_board = DeleteBoard(self.api_request)
+        delete_board.delete_board(delete_board_payload)
 
     # ------------------------------------------------------------------------
 
@@ -36,6 +40,7 @@ class TestCreateBoardAPI(unittest.TestCase):
 
         # Act
         response = create_board.post_create_board(create_board_payload)
+        self.board_id = response.data['data']['create_board']['id']
 
         # Assert
         self.assertEqual(response.status, 200, "Expected status code to be 200")

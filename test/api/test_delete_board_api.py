@@ -5,9 +5,7 @@ from infra.config_provider import ConfigProvider
 from logic.entites.create_board_payload import CreateBoardPayload
 from logic.entites.delete_board_payload import DeleteBoardPayload
 from logic.logic_api.create_board import CreateBoard
-from logic.logic_api.create_item import CreateItem
 from logic.logic_api.delete_board import DeleteBoard
-from logic.logic_api.delete_item import DeleteItem
 
 
 class TestDeleteBoardAPI(unittest.TestCase):
