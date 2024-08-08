@@ -3,9 +3,9 @@ import unittest
 from infra.api.api_wrapper import APIWrapper
 from infra.browser.browser_wrapper import BrowserWrapper
 from infra.config_provider import ConfigProvider
-from logic.entites.default_task_payload import DefaultTaskPayload
-from logic.entites.working_on_it_task import WorkingOnItTask
-from logic.logic_api.new_tasks import NewTask
+from logic.entites.default_item_payload import DefaultItemPayload
+from logic.entites.working_on_it_item import WorkingOnItItem
+from logic.logic_api.create_item import CreateItem
 from logic.logic_browser.board_page import BoardPage
 from logic.logic_browser.base_page_app import BasePageApp
 from logic.logic_browser.login_page import LoginPage
@@ -27,7 +27,7 @@ class TestCreateDefaultTask(unittest.TestCase):
         login_page = LoginPage(self.driver)
         login_page.login_flow(self.config["email"], self.config["password"])
 
-        self.new_task = NewTask(self.api_request)
+        self.new_task = CreateItem(self.api_request)
 
     # ------------------------------------------------------------------------
 
@@ -45,10 +45,10 @@ class TestCreateDefaultTask(unittest.TestCase):
         Tests the creation of a new default task by sending a POST
          request and verifying its appearance on the board.
         """
-        default_task_payload = DefaultTaskPayload()
+        default_task_payload = DefaultItemPayload()
 
         # Act
-        self.new_task.post_create_task(default_task_payload)
+        self.new_task.post_create_item(default_task_payload)
 
         home_page = BasePageApp(self.driver)
         home_page.click_on_the_board_button()
@@ -67,10 +67,10 @@ class TestCreateDefaultTask(unittest.TestCase):
          sending a POST request and verifying its appearance on the board.
         """
         # Arrange
-        default_task_payload = WorkingOnItTask()
+        default_task_payload = WorkingOnItItem()
 
         # Act
-        self.new_task.post_create_task(default_task_payload.to_dict())
+        self.new_task.post_create_item(default_task_payload.to_dict())
 
         home_page = BasePageApp(self.driver)
         home_page.click_on_the_board_button()

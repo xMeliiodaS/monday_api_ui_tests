@@ -3,7 +3,7 @@ import unittest
 from infra.api.api_wrapper import APIWrapper
 from infra.browser.browser_wrapper import BrowserWrapper
 from infra.config_provider import ConfigProvider
-from logic.logic_api.new_tasks import NewTask
+from logic.logic_api.create_item import CreateItem
 from logic.logic_browser.board_page import BoardPage
 from logic.logic_browser.base_page_app import BasePageApp
 from logic.logic_browser.login_page import LoginPage
@@ -25,8 +25,8 @@ class TestSortItemByName(unittest.TestCase):
         login_page = LoginPage(self.driver)
         login_page.login_flow(self.config["email"], self.config["password"])
 
-        new_task = NewTask(self.api_request)
-        new_task.post_create_multiple_tasks(4)
+        new_task = CreateItem(self.api_request)
+        new_task.post_create_multiple_items(4)
 
         home_page = BasePageApp(self.driver)
         home_page.click_on_the_board_button()

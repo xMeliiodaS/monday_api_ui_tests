@@ -2,11 +2,11 @@ import unittest
 
 from infra.api.api_wrapper import APIWrapper
 from infra.config_provider import ConfigProvider
-from logic.entites.default_task_payload import DefaultTaskPayload
-from logic.logic_api.new_tasks import NewTask
+from logic.entites.default_item_payload import DefaultItemPayload
+from logic.logic_api.create_item import CreateItem
 
 
-class TestCreateTaskAPI(unittest.TestCase):
+class TestCreateItemAPI(unittest.TestCase):
 
     def setUp(self):
         """
@@ -31,11 +31,11 @@ class TestCreateTaskAPI(unittest.TestCase):
          request and verifying its appearance on the board.
         """
         # Arrange
-        create_task_payload = DefaultTaskPayload()
-        create_task = NewTask(self.api_request)
+        create_task_payload = DefaultItemPayload()
+        create_task = CreateItem(self.api_request)
 
         # Act
-        response = create_task.post_create_task(create_task_payload)
+        response = create_task.post_create_item(create_task_payload)
         print(response)
 
         # Assert

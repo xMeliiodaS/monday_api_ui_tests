@@ -4,9 +4,9 @@ from infra.api.api_wrapper import APIWrapper
 from infra.browser.browser_wrapper import BrowserWrapper
 from infra.config_provider import ConfigProvider
 from logic.entites.archive_item_payload import ArchiveItemPayload
-from logic.entites.default_task_payload import DefaultTaskPayload
+from logic.entites.default_item_payload import DefaultItemPayload
 from logic.logic_api.archive_task import ArchiveTask
-from logic.logic_api.new_tasks import NewTask
+from logic.logic_api.create_item import CreateItem
 from logic.logic_browser.archive_page import ArchivePage
 from logic.logic_browser.base_page_app import BasePageApp
 from logic.logic_browser.login_page import LoginPage
@@ -27,11 +27,11 @@ class TestArchiveItem(unittest.TestCase):
         login_page = LoginPage(self.driver)
         login_page.login_flow(self.config["email"], self.config["password"])
 
-        default_task_payload = DefaultTaskPayload()
+        default_task_payload = DefaultItemPayload()
         self.task_name = default_task_payload.name
 
-        new_task = NewTask(self.api_request)
-        self.task_body = new_task.post_create_task(default_task_payload.to_graphql())
+        new_task = CreateItem(self.api_request)
+        self.task_body = new_task.post_create_item(default_task_payload.to_graphql())
 
         task_id = self.task_body.data['pulse_data']['id']
         self.archive_task_payload = ArchiveItemPayload(task_id)

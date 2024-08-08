@@ -1,8 +1,8 @@
 from infra.config_provider import ConfigProvider
-from logic.entites.default_task_payload import DefaultTaskPayload
+from logic.entites.default_item_payload import DefaultItemPayload
 
 
-class NewTask:
+class CreateItem:
     """
     Handles operations related to creating a new task in the project management system.
     """
@@ -17,7 +17,7 @@ class NewTask:
         self._request = request
         self.config = ConfigProvider.load_config_json()
 
-    def post_create_task(self, task_payload):
+    def post_create_item(self, task_payload):
         """
         Sends a POST request to create a new task with the provided payload.
 
@@ -31,12 +31,12 @@ class NewTask:
         url = f"{self.config['api_url']}"
         return self._request.post_request(url, self.config["header"], task_payload.to_graphql())
 
-    def post_create_multiple_tasks(self, count):
+    def post_create_multiple_items(self, count):
         """
         Sends POST requests to create multiple tasks using the DefaultTaskPayload.
 
         :param count: The number of tasks to be created.
         """
         for i in range(count):
-            default_task_payload = DefaultTaskPayload()
-            self.post_create_task(default_task_payload)
+            default_task_payload = DefaultItemPayload()
+            self.post_create_item(default_task_payload)
