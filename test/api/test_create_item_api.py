@@ -3,7 +3,9 @@ import unittest
 from infra.api.api_wrapper import APIWrapper
 from infra.config_provider import ConfigProvider
 from logic.entites.default_item_payload import DefaultItemPayload
+from logic.entites.delete_item_payload import DeleteItemPayload
 from logic.logic_api.create_item import CreateItem
+from logic.logic_api.delete_item import DeleteItem
 
 
 class TestCreateItemAPI(unittest.TestCase):
@@ -21,7 +23,9 @@ class TestCreateItemAPI(unittest.TestCase):
         """
         Clean up after each test case by deleting all tasks and quitting the WebDriver instance.
         """
-        pass
+        delete_item_payload = DeleteItemPayload(self.item_id)
+        delete_item = DeleteItem(self.api_request)
+        delete_item.delete_create_item(delete_item_payload)
 
     # ------------------------------------------------------------------------
 
@@ -36,7 +40,7 @@ class TestCreateItemAPI(unittest.TestCase):
 
         # Act
         response = create_task.post_create_item(create_task_payload)
-        print(response)
+        self.item_id = response.data['data']['create_item']['id']
 
         # Assert
         self.assertEqual(response.status, 200, "Expected status code 200 but got {response.status_code}")
