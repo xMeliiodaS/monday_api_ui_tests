@@ -13,6 +13,7 @@ class DashboardAndReportingPage(BasePageApp):
     WORKING_ON_IT_SECTION = '//div[@id="overview-section-content_62488275"]//span[@class="unicode-bidi"]'
     STUCK_SECTION = '//div[@id="overview-section-content_62488276"]//span[@class="unicode-bidi"]'
     DONE_SECTION = '//div[@id="overview-section-content_62488277"]//span[@class="unicode-bidi"]'
+    ALL_TASKS_SECTION = '//div[@id="overview-section-content_62488274"]//span[@class="unicode-bidi"]'
 
     def __init__(self, driver):
         """

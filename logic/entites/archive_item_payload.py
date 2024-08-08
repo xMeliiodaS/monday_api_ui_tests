@@ -7,7 +7,7 @@ class ArchiveItemPayload:
         """
         self.item_id = item_id
 
-    def to_dict(self):
+    def to_graphql(self):
         """
         Converts the ArchiveItemPayload instance to a dictionary representation.
 

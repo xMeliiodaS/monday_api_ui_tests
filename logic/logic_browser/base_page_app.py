@@ -1,3 +1,5 @@
+import time
+
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
@@ -9,6 +11,8 @@ class BasePageApp(BasePage):
     # ------------------Locators related to the workspace------------------
     BOARD_SIDE_BAR_BUTTON = '//span[text() ="Monday_automation"]'
     DASHBOARD_AND_REPORTING_BUTTON = '//span[text() ="Dashboard and reporting"]'
+    FAVORITES_SECTION = '//span[text() ="Favorites"]'
+    BOARDS_IN_SIDEBAR = '//div[@class="home-item-content"]'
 
     # ------------------Locators related to the menu------------------
     MENU_BUTTON = '//div[@id="surface-avatar-menu-component"]'
@@ -49,3 +53,16 @@ class BasePageApp(BasePage):
         """
         WebDriverWait(self._driver, 10).until(
             EC.element_to_be_clickable((By.XPATH, self.ARCHIVE_BUTTON))).click()
+
+    def click_on_favorite_on_sidebar_button(self):
+        """
+        Clicks on the archive button and waits until it is clickable.
+        """
+        WebDriverWait(self._driver, 10).until(
+            EC.element_to_be_clickable((By.XPATH, self.FAVORITES_SECTION))).click()
+
+    def check_if_favorite_section_have_board(self):
+        time.sleep(1)
+        elements = self._driver.find_elements(By.XPATH, self.BOARDS_IN_SIDEBAR)
+
+        return bool(elements)

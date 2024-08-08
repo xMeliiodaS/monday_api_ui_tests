@@ -31,6 +31,20 @@ class CreateItem:
         url = f"{self.config['api_url']}"
         return self._request.post_request(url, self.config["header"], task_payload.to_graphql())
 
+    def post_create_working_on_it_item(self, task_payload):
+        """
+        Sends a POST request to create a new task with the provided payload.
+
+        This method can be used to create tasks of various statuses, including
+        "Not started," "Working on it," "Stuck," and "Done," based on the details
+        included in the payload.
+
+        :param task_payload: The payload containing task details to be created.
+        :return: The response from the POST request.
+        """
+        url = f"{self.config['url']}{self.ENDPOINT}"
+        return self._request.post_request(url, self.config["header"], task_payload.to_dict())
+
     def post_create_multiple_items(self, count):
         """
         Sends POST requests to create multiple tasks using the DefaultTaskPayload.

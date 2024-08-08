@@ -42,7 +42,7 @@ class TestArchiveItem(unittest.TestCase):
         """
         # Act
         archive_task = ArchiveTask(self.api_request)
-        archive_task.post_archiving_a_task(self.archive_task_payload.to_dict())
+        archive_task.post_archiving_a_task(self.archive_task_payload.to_graphql())
 
         base_page = BasePageApp(self.driver)
         base_page.click_on_the_menu_button()
