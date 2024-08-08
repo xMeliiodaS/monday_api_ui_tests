@@ -1,3 +1,5 @@
+import json
+
 from infra.config_provider import ConfigProvider
 from infra.utils import Utils
 
@@ -53,3 +55,21 @@ class DefaultTaskPayload:
             "pos": self.pos,
             "with_undo_data": self.with_undo_data
         }
+
+    def to_graphql(self) -> dict:
+        """
+        Converts the DefaultTaskPayload instance to a GraphQL mutation query.
+
+        :return: A dictionary with the GraphQL mutation query for creating an item.
+        """
+        column_values = {
+            "pos": self.pos,
+            "with_undo_data": self.with_undo_data
+        }
+        column_values_str = json.dumps(column_values).replace('"', '\\"')  # Escape double quotes
+        query = (
+            f'mutation {{ create_item (board_id: {self.board_id}, '
+            f'group_id: "{self.group_id}", item_name: "{self.name}", '
+            f'column_values: "{column_values_str}") {{ id }} }}'
+        )
+        return {"query": query}

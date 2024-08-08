@@ -28,8 +28,8 @@ class NewTask:
         :param task_payload: The payload containing task details to be created.
         :return: The response from the POST request.
         """
-        url = f"{self.config['url']}{self.ENDPOINT}"
-        return self._request.post_request(url, self.config["header"], task_payload.to_dict())
+        url = f"{self.config['api_url']}"
+        return self._request.post_request(url, self.config["header"], task_payload.to_graphql())
 
     def post_create_multiple_tasks(self, count):
         """
