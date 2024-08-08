@@ -7,13 +7,12 @@ from infra.browser.base_page import BasePage
 
 class BasePageApp(BasePage):
     # ------------------Locators related to the workspace------------------
-    BOARD_BUTTON = '//div[@id="quick_search_item_board_1583771705"]'
+    BOARD_SIDE_BAR_BUTTON = '//span[text() ="Monday_automation"]'
     DASHBOARD_AND_REPORTING_BUTTON = '//span[text() ="Dashboard and reporting"]'
 
     # ------------------Locators related to the menu------------------
     MENU_BUTTON = '//div[@id="surface-avatar-menu-component"]'
     ARCHIVE_BUTTON = '//span[@class="ds-title" and text() = "Archive"]'
-
 
     def __init__(self, driver):
         """
@@ -23,12 +22,12 @@ class BasePageApp(BasePage):
         """
         super().__init__(driver)
 
-    def click_on_the_board_button(self):
+    def click_on_the_board_side_bar_button(self):
         """
         Clicks the board button on the home page after ensuring it's clickable.
         """
         WebDriverWait(self._driver, 10).until(
-            EC.element_to_be_clickable((By.XPATH, self.BOARD_BUTTON))).click()
+            EC.element_to_be_clickable((By.XPATH, self.BOARD_SIDE_BAR_BUTTON))).click()
 
     def click_on_the_dashboard_and_reporting_button(self):
         """

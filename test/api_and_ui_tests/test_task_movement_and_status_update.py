@@ -30,7 +30,7 @@ class TestTaskMovementAndStatusUpdate(unittest.TestCase):
         new_task.post_create_multiple_items(6)
 
         home_page = BasePageApp(self.driver)
-        home_page.click_on_the_board_button()
+        home_page.click_on_the_board_side_bar_button()
 
         self.board_page = BoardPage(self.driver)
         self.board_page.move_tasks_to_another_section(Section.WORKING_ON_IT.value, 3)
@@ -42,6 +42,7 @@ class TestTaskMovementAndStatusUpdate(unittest.TestCase):
         """
         Clean up after each test case by deleting all tasks and quitting the WebDriver instance.
         """
+        self.dashboard_and_reporting.click_on_the_board_side_bar_button()
         self.board_page.delete_all_tasks_from_board()
         self.driver.quit()
 
@@ -57,11 +58,31 @@ class TestTaskMovementAndStatusUpdate(unittest.TestCase):
         # Arrange
         sections_dict_in_board = self.board_page.get_task_count_in_each_section()
 
+        self.dashboard_and_reporting = DashboardAndReportingPage(self.driver)
+        self.dashboard_and_reporting.click_on_the_dashboard_and_reporting_button()
+
+        # Act
+        sections_dict_in_dashboard = self.dashboard_and_reporting.get_task_count_in_each_section()
+
+        # Assert
+        self.assertDictEqual(sections_dict_in_board, sections_dict_in_dashboard)
+
+    def test_sum_of_items_in_sections(self):
+        """
+        Verify that the sum of items in all sections on the board matches the
+        sum of items in all sections on the dashboard.
+        """
+        # Arrange
+        sections_dict_in_board = self.board_page.get_task_count_in_each_section()
+        sum_in_board = sum(sections_dict_in_board.values())
+
         dashboard_and_reporting = DashboardAndReportingPage(self.driver)
         dashboard_and_reporting.click_on_the_dashboard_and_reporting_button()
 
         # Act
         sections_dict_in_dashboard = dashboard_and_reporting.get_task_count_in_each_section()
+        sum_in_dashboard = sum(sections_dict_in_dashboard.values())
 
         # Assert
-        self.assertDictEqual(sections_dict_in_board, sections_dict_in_dashboard)
+        self.assertEqual(sum_in_board, sum_in_dashboard,
+                         "The sum of items in the sections on the board does not match the sum on the dashboard.")

@@ -51,7 +51,7 @@ class TestCreateDefaultTask(unittest.TestCase):
         self.new_task.post_create_item(default_task_payload)
 
         home_page = BasePageApp(self.driver)
-        home_page.click_on_the_board_button()
+        home_page.click_on_the_board_side_bar_button()
 
         self.board_page = BoardPage(self.driver)
 
@@ -73,7 +73,7 @@ class TestCreateDefaultTask(unittest.TestCase):
         self.new_task.post_create_item(default_task_payload.to_dict())
 
         home_page = BasePageApp(self.driver)
-        home_page.click_on_the_board_button()
+        home_page.click_on_the_board_side_bar_button()
 
         self.board_page = BoardPage(self.driver)
 

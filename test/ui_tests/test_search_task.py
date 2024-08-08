@@ -25,7 +25,7 @@ class TestSearchTask(unittest.TestCase):
         login_page.login_flow(self.config["email"], self.config["password"])
 
         home_page = BasePageApp(self.driver)
-        home_page.click_on_the_board_button()
+        home_page.click_on_the_board_side_bar_button()
 
         self.board_page = BoardPage(self.driver)
         self.task_names = Utils.generate_task_names(1)
