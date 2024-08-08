@@ -31,7 +31,7 @@ class TestArchiveItem(unittest.TestCase):
         self.task_name = default_task_payload.name
 
         new_task = NewTask(self.api_request)
-        self.task_body = new_task.post_create_task(default_task_payload.to_dict())
+        self.task_body = new_task.post_create_task(default_task_payload.to_graphql())
 
         task_id = self.task_body.data['pulse_data']['id']
         self.archive_task_payload = ArchiveItemPayload(task_id)

@@ -42,20 +42,6 @@ class DefaultTaskPayload:
         # Set the name to a random key
         self.name = Utils.generate_random_string()
 
-    def to_dict(self):
-        """
-        Converts the DefaultTaskPayload instance to a dictionary representation.
-
-        :return: A dictionary with the task's attributes.
-        """
-        return {
-            "board_id": self.board_id,
-            "group_id": self.group_id,
-            "name": self.name,
-            "pos": self.pos,
-            "with_undo_data": self.with_undo_data
-        }
-
     def to_graphql(self) -> dict:
         """
         Converts the DefaultTaskPayload instance to a GraphQL mutation query.
