@@ -18,20 +18,9 @@
   "incorrect_task_name": "werstye75jyr5s",
   "sort_column": "Name",
   "with_undo_data": true,
-  "space1": "---------------------------------------",
-  "create_default_task": {
-    "pos": 195168
-  },
-  "space2": "---------------------------------------",
-  "create_working_on_it_task": {
-    "column_values": {
-      "project_status": {
-        "index": 0,
-        "post_id": null,
-        "changed_at": "2024-08-04T08:40:12.883Z"
-      }
-    },
-    "pos": 65536
-  },
-  "space3": "---------------------------------------"
+  "default_pos": 195168,
+  "woi_index": 0,
+  "woi_post_id": null,
+  "woi_changed_at": "2024-08-04T08:40:12.883Z",
+  "woi_pos": 65536
 }

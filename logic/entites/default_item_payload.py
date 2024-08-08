@@ -15,7 +15,7 @@ class DefaultItemPayload:
         # From here import from the config file
         self.board_id = self.config['board_id']
         self.group_id = "new_group29179"
-        self.pos = default_task['pos']
+        self.pos = self.config['default_pos']
         self.with_undo_data = self.config['with_undo_data']
 
         self._name = None

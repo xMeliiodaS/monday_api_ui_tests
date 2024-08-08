@@ -10,14 +10,17 @@ class WorkingOnItItem:
         self.config = ConfigProvider.load_config_json()
 
         self.board_id = self.config['board_id']
-        default_task = self.config['create_working_on_it_task']
 
         self.group_id = "new_group29179"
 
+        #
         self.column_values = {
-            "project_status": default_task['column_values']['project_status']
+            "index": default_task.get('woi_index'),
+            "post_id": default_task.get('woi_post_id'),
+            "changed_at": default_task.get('woi_changed_at')
         }
-        self.pos = default_task['pos']
+
+        self.pos = self.config['woi_pos']
         self.with_undo_data = self.config['with_undo_data']
 
         self._name = None
