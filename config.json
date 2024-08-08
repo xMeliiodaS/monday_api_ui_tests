@@ -13,6 +13,8 @@
   "invalid_password": "HeySup632",
   "jira_email": "bahaa.abozlf57@gmail.com",
   "board_id": 1583771705,
+  "board_name": "Board via API",
+  "board_kind": "public",
   "incorrect_task_name": "werstye75jyr5s",
   "sort_column": "Name",
   "with_undo_data": true,
