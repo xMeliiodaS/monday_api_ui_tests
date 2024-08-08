@@ -25,7 +25,7 @@ class TestCreateItemAPI(unittest.TestCase):
         """
         delete_item_payload = DeleteItemPayload(self.item_id)
         delete_item = DeleteItem(self.api_request)
-        delete_item.delete_create_item(delete_item_payload)
+        delete_item.delete_item(delete_item_payload)
 
     # ------------------------------------------------------------------------
 

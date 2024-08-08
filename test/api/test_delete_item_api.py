@@ -19,7 +19,7 @@ class TestDeleteItemAPI(unittest.TestCase):
 
     # ------------------------------------------------------------------------
 
-    def test_delete_new_default_task(self):
+    def test_delete_default_task(self):
         """
         Tests the creation of a new default task by sending a POST
          request and verifying its appearance on the board.
@@ -33,7 +33,7 @@ class TestDeleteItemAPI(unittest.TestCase):
         delete_item = DeleteItem(self.api_request)
 
         # Act
-        response_delete = delete_item.delete_create_item(delete_item_payload)
+        response_delete = delete_item.delete_item(delete_item_payload)
 
         # Assert
         self.assertEqual(response_delete.status, 200,

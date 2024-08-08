@@ -16,6 +16,6 @@ class DeleteItem:
         self._request = request
         self.config = ConfigProvider.load_config_json()
 
-    def delete_create_item(self, delete_task_payload):
+    def delete_item(self, delete_task_payload):
         url = f"{self.config['api_url']}"
         return self._request.post_request(url, self.config["header"], delete_task_payload.to_graphql())
