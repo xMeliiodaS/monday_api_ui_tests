@@ -12,6 +12,7 @@
   "password": "Higuys192",
   "invalid_password": "HeySup632",
   "jira_email": "bahaa.abozlf57@gmail.com",
+  "jira_url": "https://bahaaabozlf19.atlassian.net/",
   "board_id": 1583771705,
   "board_name": "Board via API",
   "board_kind": "public",

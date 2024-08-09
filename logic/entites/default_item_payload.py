@@ -10,7 +10,6 @@ class DefaultItemPayload:
         Initializes DefaultTaskPayload with the given attributes.
         """
         self.config = ConfigProvider.load_config_json()
-        default_task = self.config['create_default_task']
 
         # From here import from the config file
         self.board_id = self.config['board_id']

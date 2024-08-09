@@ -11,7 +11,7 @@ class JiraHandler:
         """
         self.config = ConfigProvider().load_config_json()
         self.config_secret = ConfigProvider().load_secret_json()
-        self._jira_url = 'https://bahaaabozlf19.atlassian.net/'
+        self._jira_url = self.config['jira_url']
         self.auth_jira = JIRA(
             basic_auth=(self.config['jira_email'],
                         self.config_secret['jira_token']),
