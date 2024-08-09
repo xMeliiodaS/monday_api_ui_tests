@@ -1,10 +1,7 @@
-import time
 import unittest
 from infra.browser.browser_wrapper import BrowserWrapper
 from infra.config_provider import ConfigProvider
-from infra.utils import Utils
 from logic.logic_browser.base_page_app import BasePageApp
-from logic.logic_browser.board_page import BoardPage
 from logic.logic_browser.home_page import HomePage
 from logic.logic_browser.login_page import LoginPage
 
@@ -43,6 +40,17 @@ class TestAddToFavorites(unittest.TestCase):
 
         # Assert
         self.assertTrue(base_page_app.check_if_favorite_section_have_board())
+
+    def test_remove_board_from_favorites(self):
+        base_page_app = BasePageApp(self.driver)
+
+        # Act: Add the board to favorites
+        self.home_page.click_on_the_first_remove_from_favorite_button()
+
+        # Assert: Verify the board is removed
+        base_page_app = BasePageApp(self.driver)
+        base_page_app.click_on_favorite_on_sidebar_button()
+        self.assertFalse(base_page_app.check_if_favorite_section_have_board())
 
 
 if __name__ == '__main__':
