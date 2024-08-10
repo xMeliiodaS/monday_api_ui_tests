@@ -35,7 +35,7 @@ class BasePageApp(BasePage):
 
     def click_on_the_dashboard_and_reporting_button(self):
         """
-        Clicks the board button on the home page after ensuring it's clickable.
+        Clicks the dashboard and reporting button on the home page after ensuring it's clickable.
         """
         WebDriverWait(self._driver, 10).until(
             EC.element_to_be_clickable((By.XPATH, self.DASHBOARD_AND_REPORTING_BUTTON))).click()
@@ -56,12 +56,17 @@ class BasePageApp(BasePage):
 
     def click_on_favorite_on_sidebar_button(self):
         """
-        Clicks on the archive button and waits until it is clickable.
+        Clicks on the favorites section button and waits until it is clickable.
         """
         WebDriverWait(self._driver, 10).until(
             EC.element_to_be_clickable((By.XPATH, self.FAVORITES_SECTION))).click()
 
     def check_if_favorite_section_have_board(self):
+        """
+        Checks if the favorites section in the sidebar contains any boards.
+
+        :return: True if boards are present; otherwise, False.
+        """
         time.sleep(1)
         elements = self._driver.find_elements(By.XPATH, self.BOARDS_IN_SIDEBAR)
 

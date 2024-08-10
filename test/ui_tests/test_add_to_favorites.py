@@ -38,6 +38,10 @@ class TestAddToFavorites(unittest.TestCase):
         self.driver.quit()
 
     def test_add_board_to_favorites(self):
+        """
+        Tests adding a board to favorites by toggling its favorite status
+         and verifying its presence in the favorites section.
+        """
         # Act
         self.home_page.toggle_first_favorite_status()
 
@@ -46,9 +50,14 @@ class TestAddToFavorites(unittest.TestCase):
 
         # Assert
         self.is_board_favorited = self.base_page_app.check_if_favorite_section_have_board()
-        self.assertTrue(self.is_board_favorited)
+        self.assertTrue(self.is_board_favorited,
+                        "The board was not added to the favorites section.")
 
     def test_remove_board_from_favorites(self):
+        """
+        Tests removing a board from favorites by toggling its favorite status
+         and verifying its absence in the favorites section.
+        """
         # Act
         # Add the board to favorites
         self.home_page.click_on_the_first_remove_from_favorite_button()
@@ -59,7 +68,8 @@ class TestAddToFavorites(unittest.TestCase):
         # Assert
         # Verify the board is removed
         self.is_board_favorited = self.base_page_app.check_if_favorite_section_have_board()
-        self.assertFalse(self.is_board_favorited)
+        self.assertFalse(self.is_board_favorited,
+                         "The board is still present in the favorites section after removal.")
 
 
 if __name__ == '__main__':

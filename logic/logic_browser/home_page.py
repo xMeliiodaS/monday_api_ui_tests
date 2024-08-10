@@ -28,6 +28,9 @@ class HomePage(BasePageApp):
         time.sleep(1)
 
     def click_on_the_first_remove_from_favorite_button(self):
+        """
+        Toggles the favorite status of the first item twice to remove it from favorites.
+        """
         self.toggle_first_favorite_status()
         time.sleep(1)
         self.toggle_first_favorite_status()

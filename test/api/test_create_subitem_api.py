@@ -33,8 +33,8 @@ class TestCreateSubitemAPI(unittest.TestCase):
 
     def test_post_new_default_task(self):
         """
-        Tests the creation of a new default task by sending a POST
-         request and verifying its appearance on the board.
+        Tests the creation of a new default task and its associated subitem by
+         sending POST requests and verifying the responses.
         """
         # Arrange
         create_task_payload = DefaultItemPayload()

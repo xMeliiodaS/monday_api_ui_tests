@@ -36,9 +36,14 @@ class TestArchiveItem(unittest.TestCase):
         task_id = self.task_body.data['pulse_data']['id']
         self.archive_task_payload = ArchiveItemPayload(task_id)
 
-    def test_moving_item_to_archive_exist(self):
+    def tearDown(self) -> None:
+        # Should add to unarchive and delete item.
+        pass
+
+    def test_moving_item_to_archive_exist_there(self):
         """
-        Tests the functionality of archiving an item and verifies that the item is present in the archive.
+        Tests the functionality of archiving an item and verifies
+         that the item is present in the archive.
         """
         # Act
         archive_task = ArchiveTask(self.api_request)

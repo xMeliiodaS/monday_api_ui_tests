@@ -26,7 +26,7 @@ class TestSortItemByName(unittest.TestCase):
         login_page.login_flow(self.config["email"], self.config["password"])
 
         new_task = CreateItem(self.api_request)
-        new_task.post_create_multiple_items(4)
+        new_task.post_create_multiple_default_items(4)
 
         base_page_app = BasePageApp(self.driver)
         base_page_app.click_on_the_board_side_bar_button()
@@ -40,7 +40,7 @@ class TestSortItemByName(unittest.TestCase):
         """
         Clean up after each test case by deleting all tasks and quitting the WebDriver instance.
         """
-#        self.board_page.delete_all_tasks_from_board()
+        self.board_page.delete_all_tasks_from_board()
         self.driver.quit()
 
     # ------------------------------------------------------------------------
@@ -58,8 +58,10 @@ class TestSortItemByName(unittest.TestCase):
 
     def test_sorting_tasks_by_name_negative(self):
         """
-        Tests the functionality of invalid sorting tasks by the 'Name' column and
-        verifies that the tasks are not sorted in ascending order.
+        Tests the functionality of shuffling tasks to verify that they
+         are no longer sorted by the 'Name' column.
+
+        Checks if tasks are still sorted after shuffling.
         """
         # Act
         is_unsorted = self.board_page.shuffle_tasks_name()

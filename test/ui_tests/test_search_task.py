@@ -44,7 +44,8 @@ class TestSearchTask(unittest.TestCase):
 
     def test_search_task_by_name(self):
         """
-        Test the search functionality by task name.
+        Tests the search functionality by verifying that a task with
+         the specified name appears in the search results.
         """
         # Arrange
         task_name = self.task_names[0]
@@ -58,7 +59,8 @@ class TestSearchTask(unittest.TestCase):
 
     def test_search_task_by_name_negative(self):
         """
-        Test the search functionality by task name.
+        Tests the search functionality by verifying that no tasks
+         appear for an incorrect search term.
         """
         # Arrange
         self.board_page.click_on_search_button()

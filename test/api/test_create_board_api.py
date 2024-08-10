@@ -31,8 +31,10 @@ class TestCreateBoardAPI(unittest.TestCase):
 
     def test_post_new_board(self):
         """
-        Tests the creation of a new default task by sending a POST
-         request and verifying its appearance on the board.
+        Tests the creation of a new board by sending a POST request and verifying the response.
+
+        Checks if the response status code is 200, the response is OK,
+         and the response data contains an 'id' for the created board.
         """
         # Arrange
         create_board_payload = CreateBoardPayload()

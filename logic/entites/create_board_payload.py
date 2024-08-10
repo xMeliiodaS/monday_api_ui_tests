@@ -3,6 +3,10 @@ from infra.config_provider import ConfigProvider
 
 class CreateBoardPayload:
     def __init__(self):
+        """
+        Initializes the class by loading configuration values and setting
+         `board_name` and `board_kind` attributes.
+        """
         self.config = ConfigProvider.load_config_json()
         self.board_name = self.config['board_name']
         self.board_kind = self.config['board_kind']

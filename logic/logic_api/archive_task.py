@@ -18,9 +18,9 @@ class ArchiveTask:
 
     def post_archiving_a_task(self, task_payload):
         """
-        Sends a POST request to archive a task using the provided task payload.
+        Sends a POST request to archive a task with the specified payload.
 
-        :param task_payload: The payload containing task information to be archived.
+        :param task_payload: The payload with task information to be archived.
         :return: The response from the POST request.
         """
         url = f"{self.config['api_url']}"

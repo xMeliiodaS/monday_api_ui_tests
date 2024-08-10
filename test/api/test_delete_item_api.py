@@ -21,8 +21,8 @@ class TestDeleteItemAPI(unittest.TestCase):
 
     def test_delete_default_task(self):
         """
-        Tests the creation of a new default task by sending a POST
-         request and verifying its appearance on the board.
+        Tests the deletion of a default task by creating a new task and then
+         sending a delete request to remove it.
         """
         # Arrange
         create_item_payload = DefaultItemPayload()

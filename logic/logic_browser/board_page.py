@@ -269,7 +269,7 @@ class BoardPage(BasePageApp):
 
     def click_on_new_task_button(self):
         """
-        Clicks on the button to create a new task and waits until it is clickable.
+        Clicks on the button to create a new task after waiting and unsure it is clickable.
         """
         WebDriverWait(self._driver, 15).until(
             EC.element_to_be_clickable((By.XPATH, self.NEW_TASK_BUTTON))).click()
@@ -344,10 +344,18 @@ class BoardPage(BasePageApp):
         return len(elements) == 0
 
     def click_on_clear_search(self):
+        """
+        Clicks the clear search button after ensuring it is clickable.
+        """
         WebDriverWait(self._driver, 15).until(
             EC.element_to_be_clickable((By.XPATH, self.CLEAR_SEARCH_BUTTON))).click()
 
     def click_on_first_task_to_update(self):
+        """
+        Clicks the first task in the list to update after ensuring it is present.
+
+        Handles the case where the task list element is not found by printing an error message.
+        """
         try:
             WebDriverWait(self._driver, 15).until(
                 EC.presence_of_all_elements_located((By.XPATH, self.TASKS_LIST)))[0].click()
@@ -356,15 +364,28 @@ class BoardPage(BasePageApp):
             print("The task list element was not found.")
 
     def click_on_task_name_input(self):
+        """
+        Clicks the task name input field after ensuring it is clickable.
+        """
         WebDriverWait(self._driver, 15).until(
             EC.element_to_be_clickable((By.XPATH, self.UPDATE_TASK_NAME_BUTTON))).click()
 
     def fill_updated_task_name_in_input(self, updated_name):
+        """
+        Fills in the updated task name in the input field.
+
+        :param updated_name: The new name to be set for the task.
+        """
         WebDriverWait(self._driver, 15).until(
             EC.presence_of_element_located((By.XPATH, self.UPDATE_TASK_NAME_BUTTON))).send_keys(updated_name)
 
     def update_task_name_flow(self, updated_name):
+        """
+        Performs the full flow to update a task name by clicking the task,
+         the name input field, and filling in the new name.
+
+        :param updated_name: The new name to be set for the task.
+        """
         self.click_on_first_task_to_update()
         self.click_on_task_name_input()
         self.fill_updated_task_name_in_input(updated_name)
-

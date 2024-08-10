@@ -16,5 +16,11 @@ class CreateBoard:
         self.config = ConfigProvider.load_config_json()
 
     def post_create_board(self, board_payload):
+        """
+        Sends a POST request to create a board using the provided board payload.
+
+        :param board_payload: The payload with board creation details.
+        :return: The response from the POST request.
+        """
         url = f"{self.config['api_url']}"
         return self._request.post_request(url, self.config["header"], board_payload.to_graphql())

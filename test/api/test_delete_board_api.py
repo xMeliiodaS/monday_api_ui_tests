@@ -21,8 +21,10 @@ class TestDeleteBoardAPI(unittest.TestCase):
 
     def test_delete_board_task(self):
         """
-        Tests the creation of a new default task by sending a POST
-         request and verifying its appearance on the board.
+        Tests the deletion of a board by creating a new board and then sending a
+         delete request to remove it.
+
+        Checks if the ID in the delete response matches the ID of the board that was created.
         """
         # Arrange
         create_board_payload = CreateBoardPayload()

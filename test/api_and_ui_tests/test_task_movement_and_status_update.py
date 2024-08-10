@@ -27,7 +27,7 @@ class TestTaskMovementAndStatusUpdate(unittest.TestCase):
         login_page.login_flow(self.config["email"], self.config["password"])
 
         new_task = CreateItem(self.api_request)
-        new_task.post_create_multiple_items(6)
+        new_task.post_create_multiple_default_items(6)
 
         base_page_app = BasePageApp(self.driver)
         base_page_app.click_on_the_board_side_bar_button()
@@ -70,7 +70,7 @@ class TestTaskMovementAndStatusUpdate(unittest.TestCase):
     def test_sum_of_items_in_sections(self):
         """
         Verify that the sum of items in all sections on the board matches the
-        sum of items in all sections on the dashboard.
+        sum of items in the 'All Tasks' section on the dashboard.
         """
         # Arrange
         sum_in_board = sum(self.sections_dict_in_board.values())
