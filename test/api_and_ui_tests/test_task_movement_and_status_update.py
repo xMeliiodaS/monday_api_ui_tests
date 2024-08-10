@@ -29,13 +29,16 @@ class TestTaskMovementAndStatusUpdate(unittest.TestCase):
         new_task = CreateItem(self.api_request)
         new_task.post_create_multiple_items(6)
 
-        home_page = BasePageApp(self.driver)
-        home_page.click_on_the_board_side_bar_button()
+        base_page_app = BasePageApp(self.driver)
+        base_page_app.click_on_the_board_side_bar_button()
 
         self.board_page = BoardPage(self.driver)
         self.board_page.move_tasks_to_another_section(Section.WORKING_ON_IT.value, 3)
         self.board_page.move_tasks_to_another_section(Section.STUCK.value, 2)
         self.board_page.move_tasks_to_another_section(Section.DONE.value, 1)
+
+        self.sections_dict_in_board = self.board_page.get_task_count_in_each_section()
+        self.dashboard_and_reporting = DashboardAndReportingPage(self.driver)
     # ------------------------------------------------------------------------
 
     def tearDown(self) -> None:
@@ -55,17 +58,14 @@ class TestTaskMovementAndStatusUpdate(unittest.TestCase):
         Also, ensure that the dashboard reflects the same task counts and statuses
         as the board.
         """
-        # Arrange
-        sections_dict_in_board = self.board_page.get_task_count_in_each_section()
 
-        self.dashboard_and_reporting = DashboardAndReportingPage(self.driver)
         self.dashboard_and_reporting.click_on_the_dashboard_and_reporting_button()
 
         # Act
         sections_dict_in_dashboard = self.dashboard_and_reporting.get_task_count_in_each_section()
 
         # Assert
-        self.assertDictEqual(sections_dict_in_board, sections_dict_in_dashboard)
+        self.assertDictEqual(self.sections_dict_in_board, sections_dict_in_dashboard)
 
     def test_sum_of_items_in_sections(self):
         """
@@ -73,14 +73,12 @@ class TestTaskMovementAndStatusUpdate(unittest.TestCase):
         sum of items in all sections on the dashboard.
         """
         # Arrange
-        sections_dict_in_board = self.board_page.get_task_count_in_each_section()
-        sum_in_board = sum(sections_dict_in_board.values())
+        sum_in_board = sum(self.sections_dict_in_board.values())
 
-        dashboard_and_reporting = DashboardAndReportingPage(self.driver)
-        dashboard_and_reporting.click_on_the_dashboard_and_reporting_button()
+        self.dashboard_and_reporting.click_on_the_dashboard_and_reporting_button()
 
         # Act
-        sections_dict_in_dashboard = dashboard_and_reporting.get_task_count_in_each_section()
+        sections_dict_in_dashboard = self.dashboard_and_reporting.get_task_count_in_each_section()
         sum_in_dashboard = sum(sections_dict_in_dashboard.values())
 
         # Assert

@@ -28,8 +28,8 @@ class TestSortItemByName(unittest.TestCase):
         new_task = CreateItem(self.api_request)
         new_task.post_create_multiple_items(4)
 
-        home_page = BasePageApp(self.driver)
-        home_page.click_on_the_board_side_bar_button()
+        base_page_app = BasePageApp(self.driver)
+        base_page_app.click_on_the_board_side_bar_button()
 
         self.board_page = BoardPage(self.driver)
         self.board_page.choose_sort_flow(self.config['sort_column'])

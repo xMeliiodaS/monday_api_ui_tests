@@ -32,8 +32,8 @@ class TestTaskStateTransition(unittest.TestCase):
 
         new_task.post_create_item(default_task_payload)
 
-        home_page = BasePageApp(self.driver)
-        home_page.click_on_the_board_side_bar_button()
+        base_page_app = BasePageApp(self.driver)
+        base_page_app.click_on_the_board_side_bar_button()
 
     # ------------------------------------------------------------------------
 

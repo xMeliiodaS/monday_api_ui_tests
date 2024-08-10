@@ -2,7 +2,7 @@ from infra.config_provider import ConfigProvider
 from infra.utils import Utils
 
 
-class WorkingOnItItem:
+class WorkingOnItItemPayload:
     def __init__(self):
         """
         Initializes WorkingOnItTask with the given attributes.
@@ -13,11 +13,10 @@ class WorkingOnItItem:
 
         self.group_id = "new_group29179"
 
-        #
         self.column_values = {
-            "index": default_task.get('woi_index'),
-            "post_id": default_task.get('woi_post_id'),
-            "changed_at": default_task.get('woi_changed_at')
+            "index": self.config['woi_index'],
+            "post_id": self.config['woi_post_id'],
+            "changed_at": self.config['woi_changed_at']
         }
 
         self.pos = self.config['woi_pos']

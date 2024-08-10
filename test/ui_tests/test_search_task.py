@@ -24,8 +24,8 @@ class TestSearchTask(unittest.TestCase):
         login_page = LoginPage(self.driver)
         login_page.login_flow(self.config["email"], self.config["password"])
 
-        home_page = BasePageApp(self.driver)
-        home_page.click_on_the_board_side_bar_button()
+        base_page_app = BasePageApp(self.driver)
+        base_page_app.click_on_the_board_side_bar_button()
 
         self.board_page = BoardPage(self.driver)
         self.task_names = Utils.generate_task_names(1)
@@ -50,7 +50,6 @@ class TestSearchTask(unittest.TestCase):
         task_name = self.task_names[0]
 
         # Act
-
         self.board_page.fill_search_input(task_name)
         is_task_appeared = self.board_page.check_if_searched_task_appear(task_name)
 

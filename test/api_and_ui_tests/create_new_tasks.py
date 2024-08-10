@@ -4,7 +4,7 @@ from infra.api.api_wrapper import APIWrapper
 from infra.browser.browser_wrapper import BrowserWrapper
 from infra.config_provider import ConfigProvider
 from logic.entites.default_item_payload import DefaultItemPayload
-from logic.entites.working_on_it_item import WorkingOnItItem
+from logic.entites.working_on_it_item_payload import WorkingOnItItemPayload
 from logic.logic_api.create_item import CreateItem
 from logic.logic_browser.board_page import BoardPage
 from logic.logic_browser.base_page_app import BasePageApp
@@ -28,6 +28,7 @@ class TestCreateDefaultTask(unittest.TestCase):
         login_page.login_flow(self.config["email"], self.config["password"])
 
         self.new_task = CreateItem(self.api_request)
+        self.base_page_app = BasePageApp(self.driver)
 
     # ------------------------------------------------------------------------
 
@@ -50,8 +51,7 @@ class TestCreateDefaultTask(unittest.TestCase):
         # Act
         self.new_task.post_create_item(default_task_payload)
 
-        home_page = BasePageApp(self.driver)
-        home_page.click_on_the_board_side_bar_button()
+        self.base_page_app.click_on_the_board_side_bar_button()
 
         self.board_page = BoardPage(self.driver)
 
@@ -67,13 +67,12 @@ class TestCreateDefaultTask(unittest.TestCase):
          sending a POST request and verifying its appearance on the board.
         """
         # Arrange
-        default_task_payload = WorkingOnItItem()
+        default_task_payload = WorkingOnItItemPayload()
 
         # Act
         self.new_task.post_create_working_on_it_item(default_task_payload)
 
-        home_page = BasePageApp(self.driver)
-        home_page.click_on_the_board_side_bar_button()
+        self.base_page_app.click_on_the_board_side_bar_button()
 
         self.board_page = BoardPage(self.driver)
 
