@@ -39,6 +39,7 @@ class TestTaskMovementAndStatusUpdate(unittest.TestCase):
 
         self.sections_dict_in_board = self.board_page.get_task_count_in_each_section()
         self.dashboard_and_reporting = DashboardAndReportingPage(self.driver)
+
     # ------------------------------------------------------------------------
 
     def tearDown(self) -> None:

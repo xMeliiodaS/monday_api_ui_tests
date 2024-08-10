@@ -1,5 +1,4 @@
 import unittest
-
 from infra.api.api_wrapper import APIWrapper
 from infra.config_provider import ConfigProvider
 from logic.entites.default_item_payload import DefaultItemPayload
