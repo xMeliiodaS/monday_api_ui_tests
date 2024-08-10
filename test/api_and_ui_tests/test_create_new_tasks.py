@@ -11,7 +11,7 @@ from logic.logic_browser.base_page_app import BasePageApp
 from logic.logic_browser.login_page import LoginPage
 
 
-class TestCreateDefaultTask(unittest.TestCase):
+class TestCreateNewTask(unittest.TestCase):
 
     def setUp(self):
         """
@@ -79,8 +79,3 @@ class TestCreateDefaultTask(unittest.TestCase):
         # Assert
         self.assertTrue(self.board_page.is_task_name_displayed(default_task_payload.name),
                         "The 'working on it' task is not displayed on the board")
-
-
-
-
-

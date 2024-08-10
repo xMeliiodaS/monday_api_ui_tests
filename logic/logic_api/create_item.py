@@ -43,6 +43,7 @@ class CreateItem:
         :return: The response from the POST request.
         """
         url = f"{self.config['url']}{self.ENDPOINT}"
+        a = task_payload.to_dict()
         return self._request.post_request(url, self.config["header"], task_payload.to_dict())
 
     def post_create_multiple_items(self, count):

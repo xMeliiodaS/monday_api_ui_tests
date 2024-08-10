@@ -13,17 +13,21 @@ class WorkingOnItItemPayload:
 
         self.group_id = "new_group29179"
 
+        self._name = None
+        self.set_name()  # Set the name using the setter method
+
         self.column_values = {
-            "index": self.config['woi_index'],
-            "post_id": self.config['woi_post_id'],
-            "changed_at": self.config['woi_changed_at']
+            "name": self.name,
+            "project_status": {
+                "index": self.config['woi_index'],
+                "post_id": self.config['woi_post_id'],
+                "changed_at": self.config['woi_changed_at']
+            }
         }
 
         self.pos = self.config['woi_pos']
         self.with_undo_data = self.config['with_undo_data']
 
-        self._name = None
-        self.set_name()  # Set the name using the setter method
 
     @property
     def name(self):
