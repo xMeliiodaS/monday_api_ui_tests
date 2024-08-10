@@ -8,6 +8,7 @@ from selenium.webdriver import ActionChains, Keys
 from logic.enum.section import Section
 from logic.logic_browser.base_page_app import BasePageApp
 from logic.utils import Utils as LogicUtils
+from selenium.common.exceptions import NoSuchElementException, TimeoutException
 
 
 class BoardPage(BasePageApp):
@@ -21,6 +22,8 @@ class BoardPage(BasePageApp):
     TASK_NAME = '//div[@class="ds-text-component line-clamp"]//span[text() = "{}"]'
     TASKS_NAME = '//div[@class="ds-text-component line-clamp"]/span'
     TASK_OPTIONS = '//i[@class="icon ellipsis icon-v2-ellipsis"]'
+    UPDATE_TASK_NAME_BUTTON = '//div[@class="pulse-card-name-cell"]'
+    UPDATE_TASK_NAME_INPUT = '//input[@class="ds-editable-input ds-editable-input-text-align focus-visible"]'
 
     # ------------------Locators related to deleting a Task------------------
     DELETE_TASK_BUTTON = '//span[text() = "Delete"]'
@@ -85,8 +88,11 @@ class BoardPage(BasePageApp):
         """
         Clicks on the first task option from the task options list.
         """
-        options = self.get_task_elements()[0]
-        options.click()
+        try:
+            options = self.get_task_elements()[0]
+            options.click()
+        except NoSuchElementException:
+            print("The task's option element was not found. Which mean there is no tasks")
 
     def click_delete_button(self):
         """
@@ -111,8 +117,14 @@ class BoardPage(BasePageApp):
         Moves the first task in the tasks list to the 'Working On It' section.
         """
         # Locate the first task in the tasks list
-        task = WebDriverWait(self._driver, 15).until(
-            EC.presence_of_all_elements_located((By.XPATH, self.TASKS_LIST)))[task_index]
+        try:
+            # Locate the task in the tasks list
+            task = WebDriverWait(self._driver, 15).until(
+                EC.presence_of_all_elements_located((By.XPATH, self.TASKS_LIST))
+            )[task_index]
+        except (NoSuchElementException, TimeoutException) as e:
+            print(f"Error locating task at index {task_index}: {str(e)}")
+            return
 
         task_xpath = self.SECTIONS_NAME.format(section_name)
 
@@ -189,19 +201,30 @@ class BoardPage(BasePageApp):
 
     def insert_the_column_name(self, column_name):
         """
-        Enters the column name into the search filter input field and simulates pressing the Enter key to apply the filter.
+        Enters the column name into the search filter input field and
+        simulates pressing the Enter key to apply the filter.
 
         :param column_name: The name of the column to search for and select.
         """
-        input_field = WebDriverWait(self._driver, 15).until(
-            EC.presence_of_all_elements_located((By.XPATH, self.INPUT_SEARCH_FILTER)))[0]
-        input_field.send_keys(column_name)
-        input_field.send_keys(Keys.RETURN)
-        time.sleep(1)
+        try:
+            # Locate the input field for search filtering
+            input_field = WebDriverWait(self._driver, 15).until(
+                EC.presence_of_element_located((By.XPATH, self.INPUT_SEARCH_FILTER))
+            )
+            # Enter the column name and simulate pressing Enter
+            input_field.send_keys(column_name)
+            input_field.send_keys(Keys.RETURN)
+
+            # Add a brief wait to ensure the action is completed
+            time.sleep(1)
+
+        except (NoSuchElementException, TimeoutException) as e:
+            print(f"Error locating or interacting with the search input field: {str(e)}")
 
     def choose_sort_flow(self, column_name):
         """
-        Performs the full sorting flow by clicking on the sort settings button, choosing the column to sort by, and applying the sort.
+        Performs the full sorting flow by clicking on the sort settings button,
+         choosing the column to sort by, and applying the sort.
 
         :param column_name: The name of the column to sort the tasks by.
         """
@@ -323,3 +346,25 @@ class BoardPage(BasePageApp):
     def click_on_clear_search(self):
         WebDriverWait(self._driver, 15).until(
             EC.element_to_be_clickable((By.XPATH, self.CLEAR_SEARCH_BUTTON))).click()
+
+    def click_on_first_task_to_update(self):
+        try:
+            WebDriverWait(self._driver, 15).until(
+                EC.presence_of_all_elements_located((By.XPATH, self.TASKS_LIST)))[0].click()
+        except NoSuchElementException:
+            # Handle the exception, such as logging the error or performing alternative actions
+            print("The task list element was not found.")
+
+    def click_on_task_name_input(self):
+        WebDriverWait(self._driver, 15).until(
+            EC.element_to_be_clickable((By.XPATH, self.UPDATE_TASK_NAME_BUTTON))).click()
+
+    def fill_updated_task_name_in_input(self, updated_name):
+        WebDriverWait(self._driver, 15).until(
+            EC.presence_of_element_located((By.XPATH, self.UPDATE_TASK_NAME_BUTTON))).send_keys(updated_name)
+
+    def update_task_name_flow(self, updated_name):
+        self.click_on_first_task_to_update()
+        self.click_on_task_name_input()
+        self.fill_updated_task_name_in_input(updated_name)
+
