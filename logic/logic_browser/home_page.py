@@ -17,12 +17,18 @@ class HomePage(BasePageApp):
         """
         super().__init__(driver)
 
-    def click_on_the_first_add_to_favorite_button(self):
+    def toggle_first_favorite_status(self):
+        """
+        Toggles the favorite status of the first item in the list.
+        If the item is not a favorite, it will be added to favorites;
+         if it is already a favorite, it will be removed.
+        """
         WebDriverWait(self._driver, 15).until(
             EC.presence_of_all_elements_located((By.XPATH, self.ADD_TO_FAVORITES)))[0].click()
+        time.sleep(1)
 
     def click_on_the_first_remove_from_favorite_button(self):
-        self.click_on_the_first_add_to_favorite_button()
+        self.toggle_first_favorite_status()
         time.sleep(1)
-        self.click_on_the_first_add_to_favorite_button()
+        self.toggle_first_favorite_status()
 
