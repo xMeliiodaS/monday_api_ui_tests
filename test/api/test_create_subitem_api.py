@@ -1,7 +1,7 @@
 import unittest
 
 from infra.api.api_wrapper import APIWrapper
-from infra.config_provider import ConfigProvider
+from infra.jira_utils import JiraUtils
 from logic.entites.create_subitem_payload import CreateSubitemPayload
 from logic.entites.default_item_payload import DefaultItemPayload
 from logic.entites.delete_item_payload import DeleteItemPayload
@@ -11,15 +11,6 @@ from logic.logic_api.delete_item import DeleteItem
 
 
 class TestCreateSubitemAPI(unittest.TestCase):
-
-    def setUp(self):
-        """
-        Sets up the test environment by initializing APIWrapper and loading configuration.
-        """
-        self.api_request = APIWrapper()
-        self.config = ConfigProvider.load_config_json()
-
-    # ------------------------------------------------------------------------
 
     def tearDown(self) -> None:
         """
@@ -37,6 +28,8 @@ class TestCreateSubitemAPI(unittest.TestCase):
          sending POST requests and verifying the responses.
         """
         # Arrange
+        self.api_request = APIWrapper()
+
         create_task_payload = DefaultItemPayload()
         create_task = CreateItem(self.api_request)
 
@@ -51,11 +44,16 @@ class TestCreateSubitemAPI(unittest.TestCase):
         subitem_id = subitem_response.data['data']['create_subitem']['id']
 
         # Assert
-        self.assertEqual(subitem_response.status, 200,
-                         "Subitem creation request failed.")
-        self.assertIn('data', subitem_response.data,
-                      "Response data does not contain 'data'.")
-        self.assertIn('create_subitem', subitem_response.data['data'],
-                      "Response data does not contain 'create_subitem'.")
-        self.assertEqual(subitem_id, subitem_id,
-                         "Subitem ID does not match the expected value.")
+        try:
+            self.assertEqual(subitem_response.status, 201,
+                             "Subitem creation request failed.")
+            self.assertIn('data', subitem_response.data,
+                          "Response data does not contain 'data'.")
+            self.assertIn('create_subitem', subitem_response.data['data'],
+                          "Response data does not contain 'create_subitem'.")
+            self.assertEqual(subitem_id, subitem_id,
+                             "Subitem ID does not match the expected value.")
+        except AssertionError as e:
+            jira_utils = JiraUtils()
+            jira_utils.create_issue(self._testMethodName, str(e))
+            raise
