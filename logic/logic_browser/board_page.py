@@ -5,6 +5,8 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.webdriver import ActionChains, Keys
+
+from infra.config_provider import ConfigProvider
 from logic.enum.section import Section
 from logic.logic_browser.base_page_app import BasePageApp
 from logic.utils import Utils as LogicUtils
@@ -48,6 +50,8 @@ class BoardPage(BasePageApp):
 
         :param driver: The WebDriver instance to use for browser interactions.
         """
+        self.config = ConfigProvider.load_config_json()
+
         super().__init__(driver)
 
     # ------------------------------------------------------------------------
@@ -182,6 +186,11 @@ class BoardPage(BasePageApp):
         for section in sections:
             task_counts[section] = self.get_task_count_in_section(section)
         return task_counts
+
+    def move_tasks_to_another_sections(self):
+        self.move_tasks_to_another_section(Section.WORKING_ON_IT.value, self.config['drag_to_working_on_it_count'])
+        self.move_tasks_to_another_section(Section.STUCK.value, self.config['drag_to_stuck_count'])
+        self.move_tasks_to_another_section(Section.DONE.value, self.config['drag_to_done_count'])
 
     # ------------------------------------------------------------------------
 

@@ -27,15 +27,13 @@ class TestTaskMovementAndStatusUpdate(unittest.TestCase):
         login_page.login_flow(self.config["email"], self.config["password"])
 
         new_task = CreateItem(self.api_request)
-        new_task.post_create_multiple_default_items(5)
+        new_task.post_create_multiple_default_items(self.config['items_count'])
 
         base_page_app = BasePageApp(self.driver)
         base_page_app.click_on_the_board_side_bar_button()
 
         self.board_page = BoardPage(self.driver)
-        self.board_page.move_tasks_to_another_section(Section.WORKING_ON_IT.value, 2)
-        self.board_page.move_tasks_to_another_section(Section.STUCK.value, 1)
-        self.board_page.move_tasks_to_another_section(Section.DONE.value, 1)
+        self.board_page.move_tasks_to_another_sections()
 
         self.sections_dict_in_board = self.board_page.get_task_count_in_each_section()
         self.dashboard_and_reporting = DashboardAndReportingPage(self.driver)
