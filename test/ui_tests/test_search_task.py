@@ -28,7 +28,7 @@ class TestSearchTask(unittest.TestCase):
         base_page_app.click_on_the_board_side_bar_button()
 
         self.board_page = BoardPage(self.driver)
-        self.task_names = Utils.generate_task_names(1)
+        self.task_names = Utils.generate_task_names(Utils.generate_random_number())
 
         self.board_page.create_tasks_with_names(self.task_names)
 
