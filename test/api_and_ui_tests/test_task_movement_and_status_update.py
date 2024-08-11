@@ -3,6 +3,7 @@ import unittest
 from infra.api.api_wrapper import APIWrapper
 from infra.browser.browser_wrapper import BrowserWrapper
 from infra.config_provider import ConfigProvider
+from infra.jira_utils import JiraUtils
 from logic.enum.section import Section
 from logic.logic_api.create_item import CreateItem
 from logic.logic_browser.board_page import BoardPage
@@ -64,7 +65,12 @@ class TestTaskMovementAndStatusUpdate(unittest.TestCase):
         sections_dict_in_dashboard = self.dashboard_and_reporting.get_task_count_in_each_section()
 
         # Assert
-        self.assertDictEqual(self.sections_dict_in_board, sections_dict_in_dashboard)
+        try:
+            self.assertDictEqual(self.sections_dict_in_board, sections_dict_in_dashboard)
+        except AssertionError as e:
+            jira_utils = JiraUtils()
+            jira_utils.create_issue(self._testMethodName, str(e))
+            raise AssertionError("Test FAILED!")
 
     def test_sum_of_items_in_sections(self):
         """

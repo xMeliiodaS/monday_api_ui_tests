@@ -188,6 +188,9 @@ class BoardPage(BasePageApp):
         return task_counts
 
     def move_tasks_to_another_sections(self):
+        """
+        Moves the tasks to the given section.
+        """
         self.move_tasks_to_another_section(Section.WORKING_ON_IT.value, self.config['drag_to_working_on_it_count'])
         self.move_tasks_to_another_section(Section.STUCK.value, self.config['drag_to_stuck_count'])
         self.move_tasks_to_another_section(Section.DONE.value, self.config['drag_to_done_count'])
