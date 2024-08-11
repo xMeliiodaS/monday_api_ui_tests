@@ -9,16 +9,6 @@ from logic.logic_api.delete_item import DeleteItem
 
 
 class TestCreateItemAPI(unittest.TestCase):
-
-    def setUp(self):
-        """
-        Sets up the test environment by initializing APIWrapper and loading configuration.
-        """
-        self.api_request = APIWrapper()
-        self.config = ConfigProvider.load_config_json()
-
-    # ------------------------------------------------------------------------
-
     def tearDown(self) -> None:
         """
         Clean up after each test case by deleting all tasks and quitting the WebDriver instance.
@@ -37,6 +27,9 @@ class TestCreateItemAPI(unittest.TestCase):
          'data', and the 'id' field in the response is present and not None.
         """
         # Arrange
+        self.api_request = APIWrapper()
+        self.config = ConfigProvider.load_config_json()
+
         create_task_payload = DefaultItemPayload()
         create_task = CreateItem(self.api_request)
 
