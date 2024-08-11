@@ -40,14 +40,15 @@ class TestCreateItemAPI(unittest.TestCase):
         # Assert
         try:
             self.assertEqual(response.status, 201, "Expected status code 200 but got {response.status_code}")
+
+            response_data = response.data
+            self.assertIn('data', response_data, "Response JSON does not contain 'data'")
+
+            create_item_data = response_data['data'].get('create_item', {})
+            self.assertIn('id', create_item_data, "Response JSON does not contain 'id'")
+            self.assertIsNotNone(create_item_data['id'], "The 'id' field should not be None")
+
         except AssertionError as e:
             jira_utils = JiraUtils()
             jira_utils.create_issue(self._testMethodName, str(e))
             raise
-
-        response_data = response.data
-        self.assertIn('data', response_data, "Response JSON does not contain 'data'")
-
-        create_item_data = response_data['data'].get('create_item', {})
-        self.assertIn('id', create_item_data, "Response JSON does not contain 'id'")
-        self.assertIsNotNone(create_item_data['id'], "The 'id' field should not be None")
