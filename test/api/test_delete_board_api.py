@@ -17,6 +17,11 @@ class TestDeleteBoardAPI(unittest.TestCase):
         self.api_request = APIWrapper()
         self.config = ConfigProvider.load_config_json()
 
+        create_board_payload = CreateBoardPayload()
+        create_board = CreateBoard(self.api_request)
+
+        self.board_id = create_board.post_create_board(create_board_payload).data['data']['create_board']['id']
+
     # ------------------------------------------------------------------------
 
     def test_delete_board_task(self):
@@ -27,10 +32,6 @@ class TestDeleteBoardAPI(unittest.TestCase):
         Checks if the ID in the delete response matches the ID of the board that was created.
         """
         # Arrange
-        create_board_payload = CreateBoardPayload()
-        create_board = CreateBoard(self.api_request)
-
-        self.board_id = create_board.post_create_board(create_board_payload).data['data']['create_board']['id']
 
         delete_board_payload = DeleteBoardPayload(self.board_id)
         delete_board = DeleteBoard(self.api_request)
