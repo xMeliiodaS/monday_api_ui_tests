@@ -24,5 +24,5 @@ class ArchiveTask:
         :return: The response from the POST request.
         """
         url = f"{self.config['api_url']}"
-        return self._request.post_request(url, self.config["header"], task_payload)
+        return self._request.post_request(url, self.config["header"], task_payload.to_graphql())
 

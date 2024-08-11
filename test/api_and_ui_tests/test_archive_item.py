@@ -31,9 +31,9 @@ class TestArchiveItem(unittest.TestCase):
         self.task_name = default_task_payload.name
 
         new_task = CreateItem(self.api_request)
-        self.task_body = new_task.post_create_item(default_task_payload.to_graphql())
+        self.task_body = new_task.post_create_item(default_task_payload)
 
-        task_id = self.task_body.data['pulse_data']['id']
+        task_id = self.task_body.data['data']['create_item']['id']
         self.archive_task_payload = ArchiveItemPayload(task_id)
 
     def tearDown(self) -> None:
@@ -47,7 +47,7 @@ class TestArchiveItem(unittest.TestCase):
         """
         # Act
         archive_task = ArchiveTask(self.api_request)
-        archive_task.post_archiving_a_task(self.archive_task_payload.to_graphql())
+        archive_task.post_archiving_a_task(self.archive_task_payload)
 
         base_page = BasePageApp(self.driver)
         base_page.click_on_the_menu_button()

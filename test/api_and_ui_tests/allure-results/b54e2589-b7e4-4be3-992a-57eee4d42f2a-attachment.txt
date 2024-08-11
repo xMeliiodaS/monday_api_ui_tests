@@ -1,0 +1,27 @@
+Could not find web driver: Message: session not created: cannot connect to chrome at 127.0.0.1:10080
+from chrome not reachable
+Stacktrace:
+	GetHandleVerifier [0x00878923+23283]
+	(No symbol) [0x0083E934]
+	(No symbol) [0x007705AD]
+	(No symbol) [0x0075F99C]
+	(No symbol) [0x007A48F2]
+	(No symbol) [0x0079BBC0]
+	(No symbol) [0x0079BA17]
+	(No symbol) [0x007DD9ED]
+	(No symbol) [0x007DD21A]
+	(No symbol) [0x007D41B6]
+	(No symbol) [0x007A8017]
+	(No symbol) [0x007A890D]
+	GetHandleVerifier [0x0096A5E3+1013683]
+	GetHandleVerifier [0x00973E3C+1052684]
+	GetHandleVerifier [0x0096D4A4+1025652]
+	GetHandleVerifier [0x0089EA2B+179195]
+	(No symbol) [0x00846833]
+	(No symbol) [0x00843198]
+	(No symbol) [0x00843337]
+	(No symbol) [0x0083B4BE]
+	BaseThreadInitThunk [0x75D8FCC9+25]
+	RtlGetAppContainerNamedObjectPath [0x772980CE+286]
+	RtlGetAppContainerNamedObjectPath [0x7729809E+238]
+
