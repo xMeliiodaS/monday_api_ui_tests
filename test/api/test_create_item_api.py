@@ -1,6 +1,7 @@
 import unittest
 from infra.api.api_wrapper import APIWrapper
 from infra.config_provider import ConfigProvider
+from infra.jira_utils import JiraUtils
 from logic.entites.default_item_payload import DefaultItemPayload
 from logic.entites.delete_item_payload import DeleteItemPayload
 from logic.logic_api.create_item import CreateItem
@@ -44,7 +45,12 @@ class TestCreateItemAPI(unittest.TestCase):
         self.item_id = response.data['data']['create_item']['id']
 
         # Assert
-        self.assertEqual(response.status, 200, "Expected status code 200 but got {response.status_code}")
+        try:
+            self.assertEqual(response.status, 201, "Expected status code 200 but got {response.status_code}")
+        except AssertionError as e:
+            jira_utils = JiraUtils()
+            jira_utils.create_issue(self._testMethodName, str(e))
+            raise
 
         response_data = response.data
         self.assertIn('data', response_data, "Response JSON does not contain 'data'")
