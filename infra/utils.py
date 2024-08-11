@@ -38,11 +38,7 @@ class Utils:
         """
         Generates a random number between min_value and max_value, inclusive.
 
-        Args:
-            min_value (int): The minimum value for the random number.
-            max_value (int): The maximum value for the random number.
-
         Returns:
             int: A random number between min_value and max_value.
         """
-        return random.randint(3, 6)
+        return random.randint(4, 6)

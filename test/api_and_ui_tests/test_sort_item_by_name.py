@@ -3,6 +3,7 @@ import unittest
 from infra.api.api_wrapper import APIWrapper
 from infra.browser.browser_wrapper import BrowserWrapper
 from infra.config_provider import ConfigProvider
+from infra.utils import Utils
 from logic.logic_api.create_item import CreateItem
 from logic.logic_ui.board_page import BoardPage
 from logic.logic_ui.base_page_app import BasePageApp
@@ -26,7 +27,7 @@ class TestSortItemByName(unittest.TestCase):
         login_page.login_flow(self.config["email"], self.config["password"])
 
         new_task = CreateItem(self.api_request)
-        new_task.post_create_multiple_default_items(4)
+        new_task.post_create_multiple_default_items(Utils.generate_random_number())
 
         base_page_app = BasePageApp(self.driver)
         base_page_app.click_on_the_board_side_bar_button()

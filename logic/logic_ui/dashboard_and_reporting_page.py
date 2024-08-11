@@ -49,3 +49,7 @@ class DashboardAndReportingPage(BasePageApp):
             Section.DONE.value: self.get_task_count_in_section(self.DONE_SECTION)
         }
         return task_counts
+
+    def get_tasks_count_in_all_tasks_section(self):
+        return int(WebDriverWait(self._driver, 15).until(
+            EC.presence_of_element_located((By.XPATH, self.ALL_TASKS_SECTION))).text)

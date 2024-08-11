@@ -83,9 +83,8 @@ class TestTaskMovementAndStatusUpdate(unittest.TestCase):
         self.dashboard_and_reporting.click_on_the_dashboard_and_reporting_button()
 
         # Act
-        sections_dict_in_dashboard = self.dashboard_and_reporting.get_task_count_in_each_section()
-        sum_in_dashboard = sum(sections_dict_in_dashboard.values())
+        sections_dict_in_dashboard = self.dashboard_and_reporting.get_tasks_count_in_all_tasks_section()
 
         # Assert
-        self.assertEqual(sum_in_board, sum_in_dashboard,
+        self.assertEqual(sum_in_board, sections_dict_in_dashboard,
                          "The sum of items in the sections on the board does not match the sum on the dashboard.")
