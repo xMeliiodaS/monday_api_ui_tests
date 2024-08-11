@@ -32,3 +32,17 @@ class Utils:
         :return: A list of random task names.
         """
         return [Utils.generate_random_string() for _ in range(count)]
+
+    @staticmethod
+    def generate_random_number():
+        """
+        Generates a random number between min_value and max_value, inclusive.
+
+        Args:
+            min_value (int): The minimum value for the random number.
+            max_value (int): The maximum value for the random number.
+
+        Returns:
+            int: A random number between min_value and max_value.
+        """
+        return random.randint(3, 6)
