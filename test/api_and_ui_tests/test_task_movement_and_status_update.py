@@ -6,10 +6,10 @@ from infra.config_provider import ConfigProvider
 from infra.jira_utils import JiraUtils
 from logic.enum.section import Section
 from logic.logic_api.create_item import CreateItem
-from logic.logic_browser.board_page import BoardPage
-from logic.logic_browser.base_page_app import BasePageApp
-from logic.logic_browser.dashboard_and_reporting_page import DashboardAndReportingPage
-from logic.logic_browser.login_page import LoginPage
+from logic.logic_ui.board_page import BoardPage
+from logic.logic_ui.base_page_app import BasePageApp
+from logic.logic_ui.dashboard_and_reporting_page import DashboardAndReportingPage
+from logic.logic_ui.login_page import LoginPage
 
 
 class TestTaskMovementAndStatusUpdate(unittest.TestCase):

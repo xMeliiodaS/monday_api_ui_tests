@@ -8,7 +8,7 @@ from selenium.webdriver import ActionChains, Keys
 
 from infra.config_provider import ConfigProvider
 from logic.enum.section import Section
-from logic.logic_browser.base_page_app import BasePageApp
+from logic.logic_ui.base_page_app import BasePageApp
 from logic.utils import Utils as LogicUtils
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
 

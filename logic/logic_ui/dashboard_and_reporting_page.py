@@ -5,7 +5,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 
 from logic.enum.section import Section
-from logic.logic_browser.base_page_app import BasePageApp
+from logic.logic_ui.base_page_app import BasePageApp
 
 
 class DashboardAndReportingPage(BasePageApp):

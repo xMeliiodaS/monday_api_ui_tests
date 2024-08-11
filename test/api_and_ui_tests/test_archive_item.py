@@ -7,9 +7,9 @@ from logic.entites.archive_item_payload import ArchiveItemPayload
 from logic.entites.default_item_payload import DefaultItemPayload
 from logic.logic_api.archive_task import ArchiveTask
 from logic.logic_api.create_item import CreateItem
-from logic.logic_browser.archive_page import ArchivePage
-from logic.logic_browser.base_page_app import BasePageApp
-from logic.logic_browser.login_page import LoginPage
+from logic.logic_ui.archive_page import ArchivePage
+from logic.logic_ui.base_page_app import BasePageApp
+from logic.logic_ui.login_page import LoginPage
 
 
 class TestArchiveItem(unittest.TestCase):

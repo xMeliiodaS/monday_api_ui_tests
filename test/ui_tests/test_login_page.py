@@ -1,7 +1,7 @@
 import unittest
 from infra.browser.browser_wrapper import BrowserWrapper
 from infra.config_provider import ConfigProvider
-from logic.logic_browser.login_page import LoginPage
+from logic.logic_ui.login_page import LoginPage
 
 
 class TestLoginPage(unittest.TestCase):

@@ -6,9 +6,9 @@ from infra.config_provider import ConfigProvider
 from logic.entites.default_item_payload import DefaultItemPayload
 from logic.enum.section import Section
 from logic.logic_api.create_item import CreateItem
-from logic.logic_browser.board_page import BoardPage
-from logic.logic_browser.base_page_app import BasePageApp
-from logic.logic_browser.login_page import LoginPage
+from logic.logic_ui.board_page import BoardPage
+from logic.logic_ui.base_page_app import BasePageApp
+from logic.logic_ui.login_page import LoginPage
 
 
 class TestTaskStateTransition(unittest.TestCase):

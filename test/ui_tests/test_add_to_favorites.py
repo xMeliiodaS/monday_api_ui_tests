@@ -2,9 +2,9 @@ import time
 import unittest
 from infra.browser.browser_wrapper import BrowserWrapper
 from infra.config_provider import ConfigProvider
-from logic.logic_browser.base_page_app import BasePageApp
-from logic.logic_browser.home_page import HomePage
-from logic.logic_browser.login_page import LoginPage
+from logic.logic_ui.base_page_app import BasePageApp
+from logic.logic_ui.home_page import HomePage
+from logic.logic_ui.login_page import LoginPage
 
 
 class TestAddToFavorites(unittest.TestCase):

@@ -2,9 +2,9 @@ import unittest
 from infra.browser.browser_wrapper import BrowserWrapper
 from infra.config_provider import ConfigProvider
 from infra.utils import Utils
-from logic.logic_browser.base_page_app import BasePageApp
-from logic.logic_browser.board_page import BoardPage
-from logic.logic_browser.login_page import LoginPage
+from logic.logic_ui.base_page_app import BasePageApp
+from logic.logic_ui.board_page import BoardPage
+from logic.logic_ui.login_page import LoginPage
 
 
 class TestSearchTask(unittest.TestCase):
