@@ -66,7 +66,8 @@ class TestTaskMovementAndStatusUpdate(unittest.TestCase):
 
         # Assert
         try:
-            self.assertDictEqual(self.sections_dict_in_board, sections_dict_in_dashboard)
+            self.assertDictEqual(self.sections_dict_in_board, sections_dict_in_dashboard,
+                                 "Dictionaries are not equal which mean the reporting page is not updating")
         except AssertionError as e:
             jira_utils = JiraUtils()
             jira_utils.create_issue(self._testMethodName, str(e))
