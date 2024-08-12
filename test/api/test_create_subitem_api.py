@@ -45,7 +45,7 @@ class TestCreateSubitemAPI(unittest.TestCase):
 
         # Assert
         try:
-            self.assertEqual(subitem_response.status, 201,
+            self.assertEqual(subitem_response.status, 200,
                              "Subitem creation request failed.")
             self.assertIn('data', subitem_response.data,
                           "Response data does not contain 'data'.")

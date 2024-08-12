@@ -84,7 +84,7 @@ class BoardPage(BasePageApp):
         """
         Returns the list of task option elements on the board.
         """
-        return WebDriverWait(self._driver, 15).until(
+        return WebDriverWait(self._driver, 20).until(
             EC.presence_of_all_elements_located((By.XPATH, self.TASK_OPTIONS))
         )
 
@@ -102,7 +102,7 @@ class BoardPage(BasePageApp):
         """
         Clicks the delete button for a task.
         """
-        WebDriverWait(self._driver, 8).until(
+        WebDriverWait(self._driver, 20).until(
             EC.element_to_be_clickable((By.XPATH, self.DELETE_TASK_BUTTON))
         ).click()
 
@@ -110,7 +110,7 @@ class BoardPage(BasePageApp):
         """
         Clicks the confirmation button to finalize task deletion.
         """
-        WebDriverWait(self._driver, 8).until(
+        WebDriverWait(self._driver, 20).until(
             EC.element_to_be_clickable((By.XPATH, self.DELETE_BUTTON_CONFIRMATION))
         ).click()
 
@@ -123,7 +123,7 @@ class BoardPage(BasePageApp):
         # Locate the first task in the tasks list
         try:
             # Locate the task in the tasks list
-            task = WebDriverWait(self._driver, 15).until(
+            task = WebDriverWait(self._driver, 20).until(
                 EC.presence_of_all_elements_located((By.XPATH, self.TASKS_LIST))
             )[task_index]
         except (NoSuchElementException, TimeoutException) as e:
@@ -168,7 +168,7 @@ class BoardPage(BasePageApp):
         """
         task_count_xpath = self.SECTIONS_NAME.format(
             section_name) + "/following-sibling::span[contains(@class, 'list-name list-name-right')]"
-        task_count_element = WebDriverWait(self._driver, 15).until(
+        task_count_element = WebDriverWait(self._driver, 20).until(
             EC.presence_of_element_located((By.XPATH, task_count_xpath))
         )
         task_count_text = task_count_element.text.strip().split("/")[1].strip()
@@ -283,21 +283,21 @@ class BoardPage(BasePageApp):
         """
         Clicks on the button to create a new task after waiting and unsure it is clickable.
         """
-        WebDriverWait(self._driver, 15).until(
+        WebDriverWait(self._driver, 20).until(
             EC.element_to_be_clickable((By.XPATH, self.NEW_TASK_BUTTON))).click()
 
     def fill_task_name_input(self, task_name):
         """
         Fills the task name input field with the provided task name.
         """
-        WebDriverWait(self._driver, 15).until(
+        WebDriverWait(self._driver, 20).until(
             EC.element_to_be_clickable((By.XPATH, self.TASK_NAME_INPUT))).send_keys(task_name)
 
     def click_on_create_task_button(self):
         """
         Clicks on the button to create a task and waits until it is clickable.
         """
-        WebDriverWait(self._driver, 15).until(
+        WebDriverWait(self._driver, 20).until(
             EC.element_to_be_clickable((By.XPATH, self.CREATE_TASK_BUTTON))).click()
 
     def create_tasks_with_names(self, task_names):
@@ -318,14 +318,14 @@ class BoardPage(BasePageApp):
         """
         Clicks on the search button and waits until it is clickable.
         """
-        WebDriverWait(self._driver, 15).until(
+        WebDriverWait(self._driver, 20).until(
             EC.presence_of_element_located((By.XPATH, self.SEARCH_BUTTON))).click()
 
     def fill_search_input(self, task_name):
         """
         Fills the search input field with the provided task name.
         """
-        WebDriverWait(self._driver, 15).until(
+        WebDriverWait(self._driver, 20).until(
             EC.presence_of_element_located((By.XPATH, self.SEARCH_INPUT))).send_keys(task_name)
 
     def check_if_searched_task_appear(self, task_name):

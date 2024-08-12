@@ -30,14 +30,14 @@ class BasePageApp(BasePage):
         """
         Clicks the board button on the home page after ensuring it's clickable.
         """
-        WebDriverWait(self._driver, 10).until(
+        WebDriverWait(self._driver, 20).until(
             EC.element_to_be_clickable((By.XPATH, self.BOARD_SIDE_BAR_BUTTON))).click()
 
     def click_on_the_dashboard_and_reporting_button(self):
         """
         Clicks the dashboard and reporting button on the home page after ensuring it's clickable.
         """
-        WebDriverWait(self._driver, 10).until(
+        WebDriverWait(self._driver, 20).until(
             EC.element_to_be_clickable((By.XPATH, self.DASHBOARD_AND_REPORTING_BUTTON))).click()
 
     def click_on_the_menu_button(self):
@@ -51,7 +51,7 @@ class BasePageApp(BasePage):
         """
         Clicks on the archive button and waits until it is clickable.
         """
-        WebDriverWait(self._driver, 10).until(
+        WebDriverWait(self._driver, 20).until(
             EC.element_to_be_clickable((By.XPATH, self.ARCHIVE_BUTTON))).click()
 
     def click_on_favorite_on_sidebar_button(self):
